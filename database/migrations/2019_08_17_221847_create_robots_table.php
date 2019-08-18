@@ -14,7 +14,18 @@ class CreateRobotsTable extends Migration
     public function up()
     {
         Schema::create('robots', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id')->unique;
+			$table->string('name');
+			$table->string('source');
+			$table->date('year');
+			$table->string('author');
+			$table->text('description');
+			$table->string('purpose');
+			$table->string('motivation');
+			$table->string('size');
+			$table->string('shape');
+			$table->string('awards');
+			$table->binary('multimedia');
             $table->timestamps();
         });
     }
@@ -29,3 +40,4 @@ class CreateRobotsTable extends Migration
         Schema::dropIfExists('robots');
     }
 }
+
