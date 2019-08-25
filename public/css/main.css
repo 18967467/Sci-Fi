@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
+
+* {
+    font-family: 'Nunito', sans-serif;
+}
+
+.container {
+    display: flex;
+    justify-content: flex-start;
+}
+
+
+#navbar.row {
+    background-color: #f7f7f9;
+}
+
+
