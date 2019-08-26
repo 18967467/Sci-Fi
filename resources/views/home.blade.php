@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>AI Catalog</title>
+    <title>AI Catalog - Home</title>
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -21,25 +21,17 @@
     </header>
     <div id="navbar" class="row">
         <!--Nav-->
-        <nav class="navbar navbar-expand navbar-light bg-light">
-            <a class="navbar-brand" href="#">Menu</a>
-            <div class="navbar navbar-default" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Link 1 <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link 2</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link 3</a>
-                    </li>
-                </ul>
-            </div>
+        <nav>
+            <ul>
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="{{URL::to('entryform')}}">Add Entry</a></li>
+                <li id="rightfloat"><a href="#logout">Logout</a></li>
+                <li id="rightfloat"><a href="#login">Login</a></li>
+            </ul>
         </nav>
     </div>
     <div class="row">
-        <div id="sidebar" class="col-sm-3">
+        <div id="sidebar" class="col-sm-3 col-lg-2">
             <!--Sidebar-->
             <ul>
                 <li>
@@ -59,7 +51,7 @@
                 </li>
             </ul>
         </div>
-        <div id="table" class="col-sm-9">
+        <div id="table" class="col-sm-9 col-lg-10">
             <!--Table-->
             <table class="table">
                 <thread>
@@ -70,26 +62,26 @@
                     </tr>
                 </thread>
                 <tbody>
-                    <tr>
-                        <td>Test</td>
-                        <td>Test</td>
-                        <td>Test</td>
-                    </tr>
-                    <tr>
-                        <td>Test</td>
-                        <td>Test</td>
-                        <td>Test</td>
-                    </tr>
-                    <tr>
-                        <td>Test</td>
-                        <td>Test</td>
-                        <td>Test</td>
-                    </tr>
-                    <tr>
-                        <td>Test</td>
-                        <td>Test</td>
-                        <td>Test</td>
-                    </tr>
+                <tr>
+                    <td>Test</td>
+                    <td>Test</td>
+                    <td>Test</td>
+                </tr>
+                <tr>
+                    <td>Test</td>
+                    <td>Test</td>
+                    <td>Test</td>
+                </tr>
+                <tr>
+                    <td>Test</td>
+                    <td>Test</td>
+                    <td>Test</td>
+                </tr>
+                <tr>
+                    <td>Test</td>
+                    <td>Test</td>
+                    <td>Test</td>
+                </tr>
                 </tbody>
             </table>
         </div>
