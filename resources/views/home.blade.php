@@ -1,9 +1,9 @@
 <html>
 <head>
     <title>AI Catalog - Home</title>
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
@@ -33,6 +33,46 @@
     <div class="row">
         <div id="sidebar" class="col-sm-3 col-lg-2">
             <!--Sidebar-->
+            <div class="row">
+                <div class="col">
+                    <h2>Filters</h2>
+                </div>
+            </div>
+            <div id="filtercontainer" class="row">
+                <div id="filters" class="row">
+                    <div class="col">
+                        <h3>Title</h3>
+                    </div>
+                </div>
+                <div id="filters" class="row">
+                    <div class="col">
+                        <form action="#">
+                            <input id="search" type="text" name="test">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="filtercontainer" class="row">
+                <div id="filters" class="row">
+                    <div class="col">
+                        <h3>Purpose</h3>
+                    </div>
+                </div>
+                <div id="filters" class="row">
+                    <div class="col">
+                        <ul>
+                            <li>
+                                <input type="checkbox" id="purpose-research">
+                                <label for="purpose-research">Research</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="purpose-military">
+                                <label for="purpose-military">Military</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
             <ul>
                 <li>
                     <p>Test1</p>
@@ -54,13 +94,13 @@
         <div id="table" class="col-sm-9 col-lg-10">
             <!--Table-->
             <table class="table">
-                <thread>
+                <thead>
                     <tr>
                         <th>Test</th>
                         <th>Test2</th>
                         <th>Test3</th>
                     </tr>
-                </thread>
+                </thead>
                 <tbody>
                 <tr>
                     <td>Test</td>
