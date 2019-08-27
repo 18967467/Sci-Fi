@@ -68,6 +68,12 @@ ul {
 .container {
     display: flex;
     justify-content: flex-start;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.navbar-brand {
+    font-size: 2em;
 }
 
 #navbar.row {
