@@ -18,3 +18,15 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('entryform', function () {
+    return view('entryform');
+});
+
+Route::get('/', function () {
+    return view('home');
+});
+
+Route::get('home', function () {
+    return view('home');
+});

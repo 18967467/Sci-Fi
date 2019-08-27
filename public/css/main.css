@@ -53,6 +53,7 @@ nav li a:hover {
 
 table {
     border-collapse: collapse;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
 }
 
 table, thead, th, td {
@@ -76,12 +77,13 @@ ul {
 #sidebar {
     height: 1000px;
     padding-top: 15px;
-    background-color: #cccccc;
+    background-color: #f2f2f2;
+    z-index: 1;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
 }
 
 #table {
     height: 1000px;
-    margin-top: 10px;
     min-width: 300px;
 }
 
@@ -101,12 +103,12 @@ ul {
 #filtercontainer {
     border-top: 1px solid #737373;
     padding-top: 5px;
+    margin-top:10px;
 }
 
 #search {
     width: auto;
     max-width: 100%;
 }
-
 
 
