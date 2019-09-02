@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\UserProfileController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,7 +12,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -18,3 +19,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/profile', 'UserController@profile')->name('profile');
+Route::get('/savedlist', 'UserController@savedlist')->name('savedlist');
+Route::get('/myshared', 'UserController@myshared')->name('myshared');
+Route::get('/changepassword', 'UserController@changepassword')->name('changepassword');
+
+Route::get('/upload', 'RobotController@upload')->name('upload');
+Route::get('/statistic', 'RobotController@statistic')->name('statistic');
+Route::get('/detail', 'RobotController@detail')->name('detail');
+
+Route::get('/dashboard', 'UserController@dashboard')->name('dashboard');
