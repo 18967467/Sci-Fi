@@ -52,9 +52,10 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+			'dob'=>['regex:/^([0][1-9]|[1-2][0-9]|(3)[0-1])(\/)(((0)[1-9])|((1)[0-2]))(\/)\d{4}$/i'],
         ]);
     }
-
+     
     /**
      * Create a new user instance after a valid registration.
      *
@@ -67,7 +68,16 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+			'phone' => $data['phone'],
+			'address' => $data['address'],
+			'dob' => $data['dob'],
             'privilege' => 1,
         ]);
     }
+	
+	public function index()
+	 {
+		 $users = User::all();
+		return view('user.index',compact('users')); 
+     }
 }
