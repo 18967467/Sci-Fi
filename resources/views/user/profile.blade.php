@@ -1,4 +1,4 @@
-@extends('layouts.app')
+extends('layouts.app')
 
 @section('content')
 <div class="container">
@@ -9,7 +9,7 @@
 
                 <div class="card-body">
                 
-                
+     <form method="POST" action="{{route('register')}}">           
 	<div class="form-group row">
   		<label class="col-md-4 control-label" for="Name (Full name)">Name (Full name)</label>
        	<div class="col-md-6">        
@@ -30,9 +30,9 @@
 
 <!-- Text input-->
 <div class="form-group row">
-  		<label class="col-md-4 control-label" for="Name (Full name)">Date of birth</label>
+  		<label class="col-md-4 control-label" for="dob">Date of birth</label>
        	<div class="col-md-6">        
-       		<input id="Name (Full name)" name="Name (Full name)" type="text" placeholder="dd/mm/yyyy" class="form-control input-md">
+       		<input id="dob" name="dob" type="text" placeholder="dd/mm/yyyy" class="form-control input-md">
       	</div>
   	</div>
 
@@ -74,11 +74,11 @@
 
 
 <div class="form-group" align="center">
-  <a href="#" class="btn btn-success"><span class="glyphicon glyphicon-thumbs-up"></span> Update</a>
+  <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>
   <a href="{{ route('changepassword') }}" class="btn btn-danger" value=""><span class="glyphicon glyphicon-remove-sign"></span> Change Password</a>
     
 </div>
-
+            </form>
             </div>
         </div>
     </div>
