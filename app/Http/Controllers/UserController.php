@@ -3,19 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Repositories\UserRepository;
+use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
+	protected $users;
+	
+	
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-        
-    }
+    
     public function profile()
     {
         //
@@ -66,6 +68,7 @@ class UserController extends Controller
     {
         //
     }
+	
 
     /**
      * Display the specified resource.
@@ -96,6 +99,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+	 
     public function update(Request $request, $id)
     {
         //
@@ -112,3 +116,4 @@ class UserController extends Controller
         //
     }
 }
+
