@@ -15,7 +15,9 @@ class 100Middleware
      */
     public function handle($request, Closure $next)
     {
-		
+        if($request->user()&&request->user()->privilege!=100){
+            return redirect()->route('login');
+		}			
         return $next($request);
     }
 }
