@@ -15,7 +15,6 @@ class 0Middleware
      */
     public function handle($request, Closure $next)
     {
-		if($request->user()&&request->user()->)
         return $next($request);
     }
 }
