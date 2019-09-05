@@ -14,13 +14,9 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-		if($request->user()&&$request->user()->privilege != 100){
-	    return redirect('/login');
-
-		}
-        
-		
-		
+        if($request->user()&&$request->user()->privilege!=100){
+            return redirect()->route('login');
+		}			
 		return $next($request);
     }
 }
