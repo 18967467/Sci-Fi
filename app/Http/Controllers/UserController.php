@@ -39,10 +39,16 @@ class UserController extends Controller
         //
         return view('user/changepassword');
     }
+	
+	
     public function dashboard()
     {
         return view('admin/index');
     }
+	public function home()
+	{
+	return view('user/home');	
+	}
     public function __construct()
     {
          $this->middleware('auth');
@@ -116,4 +122,3 @@ class UserController extends Controller
         //
     }
 }
-

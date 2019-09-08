@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Property;
 class PropertyController extends Controller
 {
     /**
@@ -23,7 +23,7 @@ class PropertyController extends Controller
      */
     public function create()
     {
-        //
+        return view('properties/create');
     }
 
     /**
@@ -34,7 +34,19 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+		'name'=>'required',
+		'input_type_id'=>'required|integer',
+		'order'=>'required|integer'
+		]);
+		$property = new Property([
+		'name'=>$request->post('name'),
+		'input_type_id'=>$request->post('input_type_id'),
+		'description'=>$request->post('description'),
+		'order'=>$request->post('order')
+		]);
+		$property->save();
+		return redirect('/dashboard')->with('success','Property has been added!');
     }
 
     /**
