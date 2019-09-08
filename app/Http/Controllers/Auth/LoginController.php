@@ -33,6 +33,14 @@ class LoginController extends Controller
      *
      * @return void
      */
+	 protected function authenticated($request, $user){
+		 if($user->privilege==100){
+			 return redirect()->intended('/dashboard');
+		 }
+		 else{
+			 return redirect()->intended('/home');
+		 }
+	 }
     public function __construct()
     {
         $this->middleware('guest')->except('logout');

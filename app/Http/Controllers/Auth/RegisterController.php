@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
-
 use App\User;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Home;
@@ -22,17 +20,14 @@ class RegisterController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
-
     
     use RegistersUsers;
-
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
       protected $redirectTo = '/login';
-
     /**
      * Create a new controller instance.
      *
@@ -42,7 +37,6 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
-
     /**
      * Get a validator for an incoming registration request.
      *
@@ -54,14 +48,12 @@ class RegisterController extends Controller
 	$this->validator($request->all())->validate();
 	
     event(new Registered($user=$this->create($request->all())));
-	if(!$user->privilege==100){
     return redirect($this->redirectTo)->with('message','Registered successfully, please login....!');
-    }
-	else{
-     return view('\home');
-   	}	
+    
+		
     		
 	}
+	
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -84,7 +76,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-			'privilege' => $data['privilege'],
+			'privilege' =>1,
         ]);
     }
 	
@@ -94,4 +86,4 @@ class RegisterController extends Controller
 		return view('user.index',compact('users')); 
      }
 	}
-	
+

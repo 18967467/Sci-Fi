@@ -1,118 +1,40 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App;
 
-use Illuminate\Http\Request;
-use App\User;
-use App\Repositories\UserRepository;
-use App\Http\Controllers\Controller;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class UserController extends Controller
+class User extends Authenticatable
 {
-	protected $users;
-	
-	
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    
-    public function profile()
-    {
-        //
-        return view('user/profile');
-    }
-    public function savedlist()
-    {
-        //
-        return view('user/savedlist');
-    }
-    public function myshared()
-    {
-        //
-        return view('user/myshared');
-    }
-    
-    public function changepassword()
-    {
-        //
-        return view('user/changepassword');
-    }
-    public function dashboard()
-    {
-        return view('admin/index');
-    }
-    public function __construct()
-    {
-         $this->middleware('auth');
-    }
+    use Notifiable;
 
     /**
-     * Show the form for creating a new resource.
+     * The attributes that are mass assignable.
      *
-     * @return \Illuminate\Http\Response
+     * @var array
      */
-    public function create()
-    {
-        //
-    }
+    protected $fillable = [
+        'name', 'email', 'password', 'privilege',
+    ];
 
     /**
-     * Store a newly created resource in storage.
+     * The attributes that should be hidden for arrays.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @var array
      */
-    public function store(Request $request)
-    {
-        //
-    }
-	
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 
     /**
-     * Display the specified resource.
+     * The attributes that should be cast to native types.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @var array
      */
 	 
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
 }
