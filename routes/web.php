@@ -29,7 +29,9 @@ Route::get('/upload', 'RobotController@upload')->name('upload');
 Route::get('/statistic', 'RobotController@statistic')->name('statistic');
 Route::get('/detail', 'RobotController@detail')->name('detail');
 
-Route::get('/dashboard', 'UserController@dashboard')->name('dashboard')->middleware('authenticated');
+Route::get('/dashboard', 'UserController@dashboard')->name('dashboard');
+Route::resource('properties','PropertyController');
+
 
 
 
