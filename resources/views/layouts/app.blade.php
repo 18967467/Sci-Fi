@@ -47,9 +47,6 @@
                 @endif
             @else                        	
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="{{ route('dashboard') }}">Welcome {{ Auth::user()->name }}</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="{{ route('upload') }}">{{ __('Upload') }}</a>
                 </li>
                 <li class="nav-item">
@@ -64,6 +61,10 @@
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="{{ route('statistic') }}">{{ __('Statistic') }}</a>
                 </li>
+				<li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="{{ url('/users') }}">{{ __('Users') }}</a>
+                </li>
+				
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
