@@ -62,7 +62,7 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="utilities-border.html">List of users</a>
+            <a class="collapse-item" href="{{URL::to('users')}}">List of users</a>
           </div>
         </div>
       </li>
