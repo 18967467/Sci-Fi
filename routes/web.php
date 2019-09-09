@@ -24,14 +24,14 @@ Route::get('/profile', 'UserController@profile')->name('profile');
 Route::get('/savedlist', 'UserController@savedlist')->name('savedlist');
 Route::get('/myshared', 'UserController@myshared')->name('myshared');
 Route::get('/changepassword', 'UserController@changepassword')->name('changepassword');
-Route::get('/users','RegisterController@index');
 Route::get('/upload', 'RobotController@upload')->name('upload');
 Route::get('/statistic', 'RobotController@statistic')->name('statistic');
 Route::get('/detail', 'RobotController@detail')->name('detail');
 
 Route::get('/dashboard', 'UserController@dashboard')->name('dashboard');
 Route::resource('properties','PropertyController');
-
+Route::resource('users','UserController');
+Route::get('/userlist','UserController@ShowUserList')->name('userlist');
 
 
 
