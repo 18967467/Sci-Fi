@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 @section('content')
 <div class="container">
@@ -11,6 +11,8 @@
 <td>Phone</td>
 <td>Address</td>
 <td>Date of Birth</td>
+<td>Delete</td>
+
 </tr>
 </thead>
 <tbody>
@@ -22,11 +24,16 @@
 <td>{{$user->phone}}</td>
 <td>{{$user->address}}</td>
 <td>{{$user->dob}}</td>
-<td>Edit</td>
-<td>Delete</td>
+<td>
+<form action="{{route('users.destroy',$user->id)}}" method="post">
+@csrf
+@method('DELETE')
+<button class="btn btn-danger" type="submit">Delete</button>
+</form>
+</td>
 </tr>
 @endforeach
 </tbody>
 </table>
 <div>
-@endsection(''content)
+@endsection('content')
