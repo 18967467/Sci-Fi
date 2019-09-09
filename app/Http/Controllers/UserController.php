@@ -53,6 +53,11 @@ class UserController extends Controller
     {
          $this->middleware('auth');
     }
+	public function index()
+	 {
+		 $users = User::all();
+		return view('user/index',compact('users')); 
+     }
 
     /**
      * Show the form for creating a new resource.
@@ -119,6 +124,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user=User::find($id);
+		$user->delete();
+		return redirect('/users')->with('success','User had been deleted Successfully');
     }
 }
