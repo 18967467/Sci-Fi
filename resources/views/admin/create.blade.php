@@ -9,8 +9,8 @@
 <input type="text" class="form-control" name="name"/>
 </div>
 <div class="form-group">
-<label for="type">Input Type</label>
-<select class="form-control" name="type" id="type">
+<label for="input_type_id">Input Type</label>
+<select class="form-control" name="input_type_id" id="input_type_id">
 <option value="1">Text</option>
 <option value="2">Checkbox</option>
 <option value="3">Radio</option>
