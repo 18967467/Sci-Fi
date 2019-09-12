@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Repositories\UserRepository;
 use App\Http\Controllers\Controller;
-
+use Auth;
+use Session;
 class UserController extends Controller
 {
 	protected $users;
