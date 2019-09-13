@@ -18,19 +18,19 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('reguser');
 
-Route::get('/profile', 'UserController@profile')->name('profile');
-Route::get('/savedlist', 'UserController@savedlist')->name('savedlist');
-Route::get('/myshared', 'UserController@myshared')->name('myshared');
+Route::get('/profile', 'UserController@profile')->name('profile')->middleware('reguser');
+Route::get('/savedlist', 'UserController@savedlist')->name('savedlist')->middleware('reguser');
+Route::get('/myshared', 'UserController@myshared')->name('myshared')->middleware('reguser');
 Route::get('/changepassword', 'UserController@changepassword')->name('changepassword');
-Route::get('/upload', 'RobotController@upload')->name('upload');
-Route::get('/statistic', 'RobotController@statistic')->name('statistic');
-Route::get('/detail', 'RobotController@detail')->name('detail');
+Route::get('/upload', 'RobotController@upload')->name('upload')->middleware('reguser');
+Route::get('/statistic', 'RobotController@statistic')->name('statistic')->middleware('reguser');
+Route::get('/detail', 'RobotController@detail')->name('detail')->middleware('reguser');
 
-Route::resource('properties','PropertyController');
-Route::resource('users','UserController');
-Route::get('/userlist','UserController@ShowUserList')->name('userlist');
+Route::resource('properties','PropertyController')->middleware('authenticated');
+Route::resource('users','UserController')->middleware('authenticated');
+Route::get('/userlist','UserController@ShowUserList')->name('userlist')->middleware('authenticated');
 Route::get('/dashboard','UserController@dashboard')->name('dashboard')->middleware('authenticated');
 	
 	
