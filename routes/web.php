@@ -36,6 +36,7 @@ Route::get('/statistic', 'UsersController@statistic')->name('statistic');
 Route::get('/robotdetail/{robotId}', 'UsersController@robotDetail')->name('robotDetail');
 
 Route::get('/dashboard', 'AdminController@dashboard')->name('dashboard');
+Route::get('/filter', 'RobotsController@filter')->name('filter');
 
 
 

@@ -9,7 +9,9 @@ use Illuminate\Http\Request;
 use Exception;
 use App\Models\Property;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use App\Models\RobotInfo;
+use Symfony\Component\Debug\Tests\Fixtures\ToStringThrower;
 
 class RobotsController extends Controller
 {
@@ -19,6 +21,7 @@ class RobotsController extends Controller
      *
      * @return Illuminate\View\View
      */
+   
     public function index()
     {
         $robots = Robot::with('user')->paginate(25);
@@ -39,6 +42,80 @@ class RobotsController extends Controller
         
         return view('robots.create', compact('Users', 'properties'));
     }
+    
+    public function filter(Request $request)
+    {
+        if($request->ajax())
+        {
+            $robotIds = DB::table('robots')->select('id')->get()->pluck('id')->toArray();
+            $joinDb = DB::table('robots')   ->join('robot_infos', 'robots.id', '=', 'robot_infos.robot_id')
+                                            ->join('properties', 'robot_infos.property_id', '=', 'properties.id');
+//                                             ->select('robots.id as id', 'properties.name as property', 'robot_infos.content as content');  
+            $inputs = "";             
+            foreach ($request->all() as $key => $value) {
+                if($value != null) {                    
+                    $key = explode("*", $key)[0];
+                    $query1 = clone $joinDb;
+                    $robotIds = $query1 ->select('robots.id')
+                                        ->whereIn('robots.id', $robotIds)
+                                        ->where('properties.name', 'LIKE', $key)
+                                        ->where('robot_infos.content', 'LIKE', '%'.$value.'%')
+                                        ->groupBy('id')
+                                        ->get()->pluck('id')->toArray();
+                } 
+                    $inputs .= $key . " --- " . $value;
+            }            
+            $robots = Robot::whereIn('id', $robotIds)->where('state', 1)->paginate(12);            
+            $output = "";
+            if($robots->count() == 0) {
+                $output = "<h2>There are 0 result !!!</h2>";
+            } else {
+                $output = "<div class='col-lg-12'><h2>There are " . $robots->count() . " results !!!</h2><br></div>";
+                foreach($robots as $robot) 
+                {
+                    $output .= "<div class='col-lg-4 col-md-6 mb-4'>".
+                    "<div class='card h-100'>".
+                    "<div class='card-body'>";
+                    
+                    $collection = collect();
+                    foreach($robot->robotInfos as $robotInfo) 
+                    {
+                        $collection->push(['property' => $robotInfo->Property->name, 'content' => $robotInfo->content, 'order' => $robotInfo->Property->order]);
+                    }
+                    $sorted = $collection->sortBy('order')->where('order' , '>', 0);
+                   
+                    foreach($sorted as $robotInfo)
+                    {
+                        if($robotInfo['property'] == "Image")
+                        {
+                            $output .= "<a href='" . route('robotDetail', $robot->id) . "'>".
+                            "<img alt='' src='" .$robotInfo['content'] . "' style='max-width:100%; max-height:100%;'>".
+                                "</a>";
+                        }
+                        elseif($robotInfo['property'] == "Name")
+                        {
+                            $output .= "<h5 class='card-title'>".
+                            "<a href='" .route('robotDetail', $robot->id). "'>" .$robotInfo['content'] . "</a>".
+                            "</h5>";
+                        }
+                        else {
+                            $output = $output . "<p class='card-text'><strong>" .$robotInfo['property']. " </strong>" .$robotInfo['content'] . "</p>";
+                        }
+                    }
+                    $output .= "</div>".
+                                    "<div class='card-footer'>".
+                                    "<small class='text-muted'>&#9733; &#9733; &#9733; &#9733; &#9734;</small>".
+                                    "</div>".
+                                    "</div>".
+                                    "</div>";
+                }
+                $output .= $robots->links();
+            }
+            return Response($output);
+        }
+    }
+    
+    
 
     /**
      * Store a new robot in the storage.

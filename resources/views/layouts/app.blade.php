@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
@@ -96,5 +97,42 @@
     <!-- Datatable -->
     <script src="{{ asset('datatables/datatables.min.js') }}"></script>
   	<script src="{{ asset('datatables/cardtransfer.js') }}"></script> 
+  	
+  	<script type="text/javascript">
+  		$(document).ready(function(){        	
+        	$.ajax({
+                type : 'get',
+                url : '{{ route('filter') }}',
+                success:function(data){
+					//console.log();
+					$('#content').html(data);
+                }
+        	});
+        })
+        
+        $("#filterForm").submit(function(event){
+        	event.preventDefault(); //prevent default action 
+//         	var post_url = $(this).attr("action"); //get form action url
+//         	var request_method = $(this).attr("method"); //get form GET/POST method
+        	var form_data = $(this).serialize(); //Encode form elements for submission        	
+        	$.ajax({
+        		type : 'get',
+                url : '{{ route('filter') }}',
+        		data : form_data,
+        		success:function(data){
+// 					console.log(form_data);
+					$('#content').html(data);
+                }
+        	});
+        });
+    </script>
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
+  	
 </body>
 </html>
