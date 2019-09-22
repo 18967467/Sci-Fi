@@ -165,7 +165,8 @@ return [
         /*
          * Package Service Providers...
          */
-         Laravel\Socialite\SocialiteServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
+
 
         /*
          * Application Service Providers...
@@ -190,7 +191,7 @@ return [
     */
 
     'aliases' => [
-  
+
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,

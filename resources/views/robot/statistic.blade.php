@@ -1,122 +1,95 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Upload robot') }}</div>
+                <div class="card-header">{{ __('Statistics') }}</div>
 
                 <div class="card-body">
-                
-                
-	<div class="form-group row">
-  		<label class="col-md-4 control-label" for="Name (Full name)">Name</label>
-       	<div class="col-md-6">        
-       		<input id="Name (Full name)" name="Name (Full name)" type="text" placeholder="" class="form-control input-md">
-      	</div>
-  	</div>
+                    <div class="row">
+                        <div class="col-sm-4">
+
+                            <div class="form-group row">
+                                <label class="col-sm-5 control-label" for="chart-type">Type</label>
+                                <div class="col-sm-5">
+                                    <select id="chart-type">
+                                        <option value="bar">Bar</option>
+                                        <option value="line">Line</option>
+                                        <option value="radar">Radar</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-5 control-label" for="xaxis">X Axis</label>
+                                <div class="col-sm-5">
+                                    <select id="xaxis">
+                                        <option value="bar">Bar</option>
+                                        <option value="line">Line</option>
+                                        <option value="scatter">Scatter</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-5 control-label" for="yaxis">Y Axis</label>
+                                <div class="col-sm-5">
+                                    <select id="yaxis">
+                                        <option value="column">Column</option>
+                                        <option value="line">Line</option>
+                                        <option value="bar">Bar</option>
+                                    </select>
+                                </div>
+                            </div>
 
 
-<!-- File Button --> 
-<div class="form-group row">
-  	<div class="col-md-4">
-  		<img width="150" height="200" src="{{ asset('img/robot/rb02.jpg') }}" alt=""></a>
-  	</div>
-  	<div class="col-md-6 ">
-    	<input id="Upload photo" name="Upload photo" class="input-file" type="file">
-  	</div>
-</div>
+                            <div class="form-group" align="center">
+                                <a id="renderBtn" class="btn btn-success"><span class="glyphicon glyphicon-thumbs-up"></span>Render</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="container">
+                                <canvas id="myChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-<!-- Text input-->
-<div class="form-group row">
-  		<label class="col-md-4 control-label" for="Name (Full name)">Source</label>
-       	<div class="col-md-6">        
-       		<input id="Name (Full name)" name="Name (Full name)" type="text" placeholder="" class="form-control input-md">
-      	</div>
-  	</div>
-
-<!-- Text input-->
-<div class="form-group row">
-  		<label class="col-md-4 control-label" for="Name (Full name)">Year</label>
-       	<div class="col-md-6">        
-       		<input id="Name (Full name)" name="Name (Full name)" type="text" placeholder="" class="form-control input-md">
-      	</div>
-  	</div>
-
-
-
-<!-- Text input-->
-<div class="form-group row">
-  		<label class="col-md-4 control-label" for="Name (Full name)">Author</label>
-       	<div class="col-md-6">        
-       		<input id="Name (Full name)" name="Name (Full name)" type="text" placeholder="" class="form-control input-md">
-      	</div>
-  	</div>
-
-<!-- Text input-->
-<div class="form-group row">
-  		<label class="col-md-4 control-label" for="Name (Full name)">Description</label>
-       	<div class="col-md-6">        
-       		<input id="Name (Full name)" name="Name (Full name)" type="text" placeholder="" class="form-control input-md">
-      	</div>
-  	</div>
-  	
-  	<!-- Text input-->
-<div class="form-group row">
-  		<label class="col-md-4 control-label" for="Name (Full name)">Purpose</label>
-       	<div class="col-md-6">        
-       		<input id="Name (Full name)" name="Name (Full name)" type="text" placeholder="" class="form-control input-md">
-      	</div>
-  	</div>
-
-<!-- Text input-->
-<div class="form-group row">
-  		<label class="col-md-4 control-label" for="Name (Full name)">Motivation</label>
-       	<div class="col-md-6">        
-       		<input id="Name (Full name)" name="Name (Full name)" type="text" placeholder="" class="form-control input-md">
-      	</div>
-  	</div>
-
-<!-- Text input-->
-<div class="form-group row">
-  		<label class="col-md-4 control-label" for="Name (Full name)">Size</label>
-       	<div class="col-md-6">        
-       		<input id="Name (Full name)" name="Name (Full name)" type="text" placeholder="" class="form-control input-md">
-      	</div>
-  	</div>
-  	<!-- Text input-->
-<div class="form-group row">
-  		<label class="col-md-4 control-label" for="Name (Full name)">Shape</label>
-       	<div class="col-md-6">        
-       		<input id="Name (Full name)" name="Name (Full name)" type="text" placeholder="" class="form-control input-md">
-      	</div>
-  	</div>
-
-
-<!-- Text input-->
-<div class="form-group row">
-  		<label class="col-md-4 control-label" for="Name (Full name)">Awards</label>
-       	<div class="col-md-6">        
-       		<input id="Name (Full name)" name="Name (Full name)" type="text" placeholder="" class="form-control input-md">
-      	</div>
-  	</div>
-
-
-
-
-
-
-
-
-<div class="form-group" align="center">
-  <a href="#" class="btn btn-success"><span class="glyphicon glyphicon-thumbs-up"></span> Submit</a>
-    
-</div>
 
             </div>
         </div>
     </div>
 </div>
+<script>
+
+    $("#renderBtn").click(
+        function () {
+            let type = document.querySelector('#chart-type');
+            type = type.value;
+            let xaxis = document.querySelector('#xaxis');
+                xaxis = xaxis.value;
+            let  labels =  ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+            renderChart(type, xaxis, labels);
+
+            function renderChart(type, xaxis, labels) {
+                let ctx = document.getElementById("myChart").getContext('2d');
+                let myChart = new Chart(ctx, {
+                    type: type,
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'This week',
+                            data: xaxis,
+                        }]
+                    },
+                });
+            }
+        }
+    );
+</script>
 
 @endsection
