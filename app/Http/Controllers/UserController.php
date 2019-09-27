@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Repositories\UserRepository;
 use App\Http\Controllers\Controller;
-
+use Auth;
+use Session;
 class UserController extends Controller
 {
 	protected $users;
@@ -53,6 +54,11 @@ class UserController extends Controller
     {
          $this->middleware('auth');
     }
+	public function index()
+	 {
+		 $users = User::all();
+		return view('user/index',compact('users')); 
+     }
 
     /**
      * Show the form for creating a new resource.
@@ -119,6 +125,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user=User::find($id);
+		$user->delete();
+		return redirect('/users')->with('success','User had been deleted Successfully');
     }
 }
