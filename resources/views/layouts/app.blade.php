@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
@@ -11,103 +11,144 @@
   <title>Robot Galaxy</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-
-  <!-- Custom fonts for this template -->
-  <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('bootstrap/bootstrap.min/css') }}" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  
+  <!-- Custom fonts -->
+  <!--   <script src="https://kit.fontawesome.com/1be45fb696.js"></script> -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css" integrity="sha384-rtJEYb85SiYWgfpCr0jn174XgJTn4rptSOQsMroFBPQSGLdOC5IbubP6lJ35qoM9" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-  <!-- Custom styles for this template -->
-  <link href="{{ asset('css/grayscale.min.css') }}" rel="stylesheet">
-
+  <!-- Custom styles-->  
+  <link href="{{ asset('css/shop-homepage.css') }}" rel="stylesheet">
+  <!-- Datatable -->
+  <link href="{{ asset('datatables/datatables.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('datatables/cardtransfer.css') }}" rel="stylesheet">
 </head>
 
-<body id="page-top" background="{{ asset('img/bg-background.jpg') }}">
-
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-    <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="/home">Home</a>
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        Menu
-        <i class="fas fa-bars"></i>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-        
-			@guest
-				<li class="nav-item">
-            		<a class="nav-link js-scroll-trigger" href="{{ route('login') }}">{{ __('Login') }}</a>
-          		</li>
-                @if (Route::has('register'))
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    	<div class="container">
+            <a class="navbar-brand" href="/">Home</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">                  
+                    @guest
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="{{ route('register') }}">{{ __('Register') }}</a>
+                    	<a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                     </li>
-                @endif
-            @else                        	
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="{{ route('upload') }}">{{ __('Upload') }}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="{{ route('myshared') }}">{{ __('My shared') }}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="{{ route('savedlist') }}">{{ __('Saved List') }}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="{{ route('profile') }}">{{ __('Profile') }}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="{{ route('statistic') }}">{{ __('Statistic') }}</a>
-                </li>
-				<li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="{{ url('/users') }}">{{ __('Users') }}</a>
-                </li>
-				
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('logout') }}"
-                    onclick="event.preventDefault();
-                                         document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                    </li>
+                    @else           	                    	
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('dashboard') }}" style="color: yellow;">Welcome {{ Auth::user()->name }}</a>
+                    </li>
+                    <li class="nav-item {{ $active == 'home' ? 'active' : '' }}">
+                    <a class="nav-link" href="/home">Robots
+                    </a>
+                    </li> 
+                    <li class="nav-item {{ $active == 'upload' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('upload') }}">{{ __('Upload') }}</a>
+                    </li>
+                    <li class="nav-item {{ $active == 'shared' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('shared') }}">{{ __('My shared') }}</a>
+                    </li>
+                    <li class="nav-item {{ $active == 'saved' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('saved') }}">{{ __('Saved List') }}</a>
+                    </li>
+                    <li class="nav-item {{ $active == 'profile' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('profile') }}">{{ __('Profile') }}</a>
+                    </li>
+                    <li class="nav-item {{ $active == 'statistic' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('statistic') }}">{{ __('Statistic') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('logout') }}"
+                        	onclick="event.preventDefault();
+                        		   document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
                     				<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
+                                            @csrf
                                     </form>
-                </li>
-            @endguest
-        </ul>
-      </div>
+                    </li>
+                    @endguest
+                </ul>
+            </div>
+    	</div>
+    </nav>
+    
+    <!-- Page Content -->
+    <div class="container">    
+    	@yield('content')    
     </div>
-  </nav>
-      
-      <main class="py-4">
-  </br>
-  </br>
-  </br>
-  </br>
-  </br>
-  
-@yield('content')
+    <!-- /.container -->
 
-</main>
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+        	<p class="m-0 text-center text-white">Copyright &copy; Robot Galaxy 2019</p>
+        </div>
+    </footer>
 
-  
-  <!-- Footer -->
-  <footer class="text-center text-white-50">
-    <div class="container">
-      Copyright &copy; Robot Galaxy 2019
-    </div>
-  </footer>
-
-  <!-- Bootstrap core JavaScript -->
-  <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-  <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-
-  <!-- Plugin JavaScript -->
-  <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-
-  <!-- Custom scripts for this template -->
-  <script src="{{ asset('js/grayscale.min.js') }}"></script>
-
+    <!-- Bootstrap core JavaScript -->
+    <script src="{{ asset('jquery/jquery-3.4.1.js') }}"></script>
+  	<script src="{{ asset('bootstrap/bootstrap.bundle.min.js') }}"></script>
+    <!-- Datatable -->
+    <script src="{{ asset('datatables/datatables.min.js') }}"></script>
+  	<script src="{{ asset('datatables/cardtransfer.js') }}"></script> 
+  	
+  	<script type="text/javascript">
+  		$(document).ready(function(){
+  			$(document).ready(function(){        	
+  	        	$.ajax({
+  	                type : 'get',
+  	                url : '{{ route('filter') }}',
+  	                success:function(data){
+  						//console.log();
+  						$('#content').html(data);
+  	                }
+  	        	})        	
+        	$.ajax({
+                type : 'post',
+                url : '/addComment',
+                data:{
+               'comment':$('input[name=comment]').val(),
+               'robot_id':$('input[name=robot_id]').val(),
+                '' 
+                    },
+                success:function(data){
+					//console.log();
+					$('#content').html(data);
+                }
+        	});
+        });
+        
+        $("#filterForm").submit(function(event){
+        	event.preventDefault(); //prevent default action 
+//         	var post_url = $(this).attr("action"); //get form action url
+//         	var request_method = $(this).attr("method"); //get form GET/POST method
+        	var form_data = $(this).serialize(); //Encode form elements for submission        	
+        	$.ajax({
+        		type : 'get',
+                url : '{{ route('filter') }}',
+        		data : form_data,
+        		success:function(data){
+// 					console.log(form_data);
+					$('#content').html(data);
+                }
+        	});
+        });
+    </script>
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
+  	
 </body>
-
 </html>

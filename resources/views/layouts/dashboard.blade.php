@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,13 +10,17 @@
 
   <title>Robot Galaxy - Dashboard</title>
 
-  <!-- Custom fonts for this template-->
-  <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+  <!-- Bootstrap core CSS -->
+  <link href="{{ asset('bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+  <!-- Custom fonts -->
+  <!--   <script src="https://kit.fontawesome.com/1be45fb696.js"></script> -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css" integrity="sha384-rtJEYb85SiYWgfpCr0jn174XgJTn4rptSOQsMroFBPQSGLdOC5IbubP6lJ35qoM9" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-  <!-- Custom styles for this template-->
-  <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
-
+  <!-- Custom styles-->  
+  <link href="{{ asset('css/dashboard.min.css') }}" rel="stylesheet">
+  <!-- Datatable -->
+  <link href="{{ asset('datatables/datatables.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('datatables/cardtransfer.css') }}" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -29,7 +32,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
@@ -41,9 +44,9 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="/">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
+          <span>Home Page</span></a>
       </li>
 
       <!-- Divider -->
@@ -56,40 +59,55 @@
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser" aria-expanded="true" aria-controls="collapseUser">
           <i class="fas fa-fw fa-cog"></i>
           <span>User</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseUser" class="collapse" aria-labelledby="headingUser" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{URL::to('users')}}">List of users</a>
+            <a class="collapse-item" href="{{ route('users.user.index') }}">List of users</a>
+          </div>
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{{ route('mails.mail.index') }}">Mails</a>
+          </div>
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{{ route('subscribes.subscribe.index') }}">Subscribes</a>
           </div>
         </div>
       </li>
 
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-cog"></i>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRobot" aria-expanded="true" aria-controls="collapseRobot">
+          <i class="fas fa-fw fa-wrench"></i>
           <span>Robot</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+        <div id="collapseRobot" class="collapse" aria-labelledby="headingRobot" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{ URL::to('properties/create')}}">Customize attribute</a>
-            <a class="collapse-item" href="utilities-border.html">List of robots</a>
+            <a class="collapse-item" href="{{ route('robots.robot.index') }}">List of robots</a>
+          </div>
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{{ route('properties.property.index') }}">Properties</a>
+            <a class="collapse-item" href="{{ route('options.option.index') }}">Options</a>
+          </div>
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{{ route('reports.report.index') }}">Reports</a>
+          </div>
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{{ route('comments.comment.index') }}">Comments</a>
           </div>
         </div>
       </li>
       
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-cog"></i>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFilter" aria-expanded="true" aria-controls="collapseFilter">
+          <i class="fas fa-fw fa-wrench"></i>
           <span>Filter</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+        <div id="collapseFilter" class="collapse" aria-labelledby="headingFilter" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="utilities-color.html">Customize filter</a>
+            <a class="collapse-item" href="{{ route('filters.filter.index') }}">Customize filter</a>
           </div>
         </div>
       </li>
@@ -279,7 +297,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Nhut Cuong Ha</span>
                 <img class="img-profile rounded-circle" src="{{ asset('img/bg-avatar.png') }}">
               </a>
               <!-- Dropdown - User Information -->
@@ -317,7 +335,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2019</span>
+            <span>Copyright &copy; Robot Galaxy 2019</span>
           </div>
         </div>
       </footer>
@@ -347,33 +365,20 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                         document.getElementById('logout-form').submit();">Logout</a>
-										 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
+          <a class="btn btn-primary" href="login.html">Logout</a>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-  <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
-
-  <!-- Page level plugins -->
-  <script src="{{ asset('vendor/chart.js/Chart.min.js') }}"></script>
-
-  <!-- Page level custom scripts -->
-  <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
-  <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
-
+  <script src="{{ asset('jquery/jquery-3.4.1.js') }}"></script>
+  <script src="{{ asset('bootstrap/bootstrap.bundle.min.js') }}"></script>
+  <!--   <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script> -->  
+  <!-- Custom scripts -->
+  <script src="{{ asset('js/dashboard.min.js') }}"></script>
+  <!-- Datatable -->
+  <script src="{{ asset('datatables/datatables.min.js') }}"></script>
+  <script src="{{ asset('datatables/initialdatatables.js') }}"></script> 
 </body>
-
 </html>
