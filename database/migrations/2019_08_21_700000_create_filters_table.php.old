@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePropertiesTable extends Migration
+class CreateFiltersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,23 +13,18 @@ class CreatePropertiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('properties', function (Blueprint $table) {
+        Schema::create('filters', function (Blueprint $table) {
             $table->tinyIncrements('id');
-            $table->string('name', 255)->unique();
+            $table->unsignedTinyInteger('property_id')->unique();
             $table->unsignedTinyInteger('input_type_id');
-                // 0: text
-                // 1: radio
-                // 2: checkbox
-                // 3: is a link, upload
-            $table->string('description', 255)->nullable();
             $table->unsignedTinyInteger('order');
                 // 0: inactive
-                // >1 : display orders
-            $table->unsignedTinyInteger('filter');
-                // 0: inactive
-                // >1 : display orders
+                // >1: display orders
             $table->timestamps();
             
+            $table->foreign('property_id')->references('id')->on('properties')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->foreign('input_type_id')->references('id')->on('input_types')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
@@ -43,9 +38,10 @@ class CreatePropertiesTable extends Migration
      */
     public function down()
     {
-        Schema::table('properties', function (Blueprint $table) {
+        Schema::table('filters', function (Blueprint $table) {
+            $table->dropForeign(['property_id']);
             $table->dropForeign(['input_type_id']);
         });
-        Schema::dropIfExists('properties');
+        Schema::dropIfExists('filters');
     }
 }
