@@ -25,6 +25,9 @@ class CreatePropertiesTable extends Migration
             $table->unsignedTinyInteger('order');
                 // 0: inactive
                 // >1 : display orders
+            $table->unsignedTinyInteger('filter');
+                // 0: inactive
+                // >1 : display orders
             $table->timestamps();
             
             $table->foreign('input_type_id')->references('id')->on('input_types')

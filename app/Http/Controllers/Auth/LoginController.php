@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Auth;
+
 class LoginController extends Controller
 {
     /*
@@ -25,58 +25,15 @@ class LoginController extends Controller
      *
      * @var string
      */
-     
-	
+    protected $redirectTo = '/home';
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-	 protected function authenticated($request, $user){
-		 if($user->privilege==100){
-			 return redirect()->intended('/dashboard');
-		 }
-		 else{
-			 return redirect()->intended('/home');
-		 }
-	 }
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
     }
-	
-	public function redirectToGoogle()
-	{
-		return Socialite::drive('google')->redirect();
-	}
-	public function handleGoogleCallback()
-	{
-		try{
-			
-			$user=Socialite::driver('google')->user();
-			
-			$finduser=User::where('google_id',$user->id)->first();
-			
-			if($finduser){
-				
-				Auth::login($finduser);
-				return redirect('/home');
-			}
-			else{
-				$newUser=User::create([
-				'name'=>$user->name,
-				'email'=>$user->email,
-				'google_id'=>$user->id
-				]);
-				
-				Auth::login($newUser);
-				return redirect()->back();
-			}
-		}
-			catch(Exception $e){
-				return redirect('auth/google');
-			}
-		}
-		
-	}
-
+}

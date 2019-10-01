@@ -70,7 +70,11 @@ class Comment extends Model
     {
         return $this->belongsTo(User::class);
     }
-
+    public function robotInfos()
+    {
+        return $this->belongsTo(RobotInfo::class);
+    }
+    
     /**
      * Get the ParentComment for this model.
      *
