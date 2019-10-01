@@ -33,11 +33,5 @@ return [
     'sparkpost' => [
         'secret' => env('SPARKPOST_SECRET'),
     ],
-	'google'=>[
-	'client_id'=>'499497479279-jqceesvti3d969867io8ptp4jul25855.apps.googleusercontent.com
-',
-	'client_secret'=>'qg28B-F67OJ6FmcnR_NR7SUC',
-	'redirect'=>'http://learn152.hd/auth/google/callback',
-	],
 
 ];
