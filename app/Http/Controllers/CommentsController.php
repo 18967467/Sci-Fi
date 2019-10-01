@@ -8,6 +8,7 @@ use App\Models\Robot;
 use App\Models\User;
 use App\Models\RobotInfo;
 use Illuminate\Http\Request;
+use Auth;
 use DB;
 use Exception;
 
@@ -28,6 +29,29 @@ class CommentsController extends Controller
          ->where('robot_infos.property_id','=',1);            
         })->get();
         return view('comments.index',compact('comments'))->with('i',(request()->input('page',1)-1)*5);
+        
+    }
+    
+    public function addComment(Request $request){
+        $rules=array(
+            'comment'=>'required'
+        );
+        $validator=Validator::make(Input::all(),$rules);
+        
+        if($validator->fails())
+            return Response::json(array(
+                'errors'=>$validator->getMessageBag()->toArray()
+            ));
+            else{
+                $user=Auth::user();
+                $comment= new Comment();
+                $comment->robot_id=$request->robot_id;
+                $comment->user_id=$user->id;
+                $comment->comment=$request->comment;
+                $comment->save();
+                return response()->json($comment);
+            }
+        
         
     }
 
