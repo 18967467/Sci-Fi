@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Auth;
 use DB;
 use Exception;
+use Response;
 
 class CommentsController extends Controller
 {
@@ -32,28 +33,7 @@ class CommentsController extends Controller
         
     }
     
-    public function addComment(Request $request){
-        $rules=array(
-            'comment'=>'required'
-        );
-        $validator=Validator::make(Input::all(),$rules);
-        
-        if($validator->fails())
-            return Response::json(array(
-                'errors'=>$validator->getMessageBag()->toArray()
-            ));
-            else{
-                $user=Auth::user();
-                $comment= new Comment();
-                $comment->robot_id=$request->robot_id;
-                $comment->user_id=$user->id;
-                $comment->comment=$request->comment;
-                $comment->save();
-                return response()->json($comment);
-            }
-        
-        
-    }
+    
 
     /**
      * Show the form for creating a new comment.
@@ -78,16 +58,13 @@ $ParentComments = Comment::pluck('id','id')->all();
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'comment'=>'required',
-        ]);        
-        $input=$request->all();
-        $input['user_id']=auth()->user()->id;
-        Comment::create($input);
-       $comments = Comment::with('robot','user','parentcomment')->paginate(25);
-        
-        return redirect()->back()->with("message","Comment added successfully");    
-    
+        $comment=new Comment;
+        $user=Auth::user();
+        $comment->robot_id=$request->robot_id;
+        $comment->user_id=$user->id;
+        $comment->comment=$request->comment;
+        $comment->save();
+        return response()->json($comment);
     }
 
     /**
