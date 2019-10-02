@@ -59,14 +59,15 @@
               </a>
         </div>    
     </div>
- <form class="form-horizontal"  method="get" id="comment_form">
+ <form class="form-horizontal"  method="post" id="comment_form">
                         <?php echo csrf_field(); ?>
                         <div class="form-group">
-                        <label class="control-label col-md-4">Comment:</label>
+                        <label for="comment" class="control-label col-md-4">Comment:</label>
                        <div class="col-md-8">
                             <textarea class="form-control" name="comment" id="comment" data-id="<?php echo e($robot->id); ?>"></textarea>
-                            <input type="hidden" name="robot_id" value="<?php echo e($robot->id); ?>" />
-                            <input type="hidden" name="user_id" id="user_id" value="<?php echo e(auth()->id); ?>" />
+                            <input type="hidden" id="robot_id" name="robot_id" value="<?php echo e($robot->id); ?>" />
+                            <input type="text" id="name" name="name" value="Joe Bloggs" />
+                                                                          
                         </div> 
                         </div>
                         <div class="form-group" align="center">

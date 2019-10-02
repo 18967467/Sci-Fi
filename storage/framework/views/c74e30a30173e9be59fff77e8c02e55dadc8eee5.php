@@ -95,6 +95,8 @@
 
     <!-- Bootstrap core JavaScript -->
     <script src="<?php echo e(asset('jquery/jquery-3.4.1.js')); ?>"></script>
+    <script src="jquery-3.4.1.min.js"></script>
+    
   	<script src="<?php echo e(asset('bootstrap/bootstrap.bundle.min.js')); ?>"></script>
     <!-- Datatable -->
     <script src="<?php echo e(asset('datatables/datatables.min.js')); ?>"></script>
@@ -103,59 +105,60 @@
   	<script type="text/javascript">
   		
   			$(document).ready(function(){        	
-            $('#addComment').click(function(){
-             $.ajax({
-             type:'get',
-             url: '/addComment',
-             data: {
-             '_token':$('input[name=_token]').val(),
-             'robot_id':$('input[name=robot_id]').val(),
-             'username':$('input[name=username]').val(),
-             'comment':$('input[name=comment]')
-                 },
-                 success:function(data){
-                 if((data.errors)){
-                 $('.error').removeClass('hidden');
-                 $('.error').text(data.errors.name);
-                     }else{
-                     $('.error').remove();
-                     $('#display-comment').append("<div class='card-header'><em><strong>"+data.username+"</strong></em></div><div class='card-body comment-container'><span>"+data.comment+"</span></div>");
-
-                         }
-                 },
-             });  
-                 $('#comment').val('');
-                 $('#username').val('');
-                  
-                 });
+          $('#addComment').click(function(e){
+          e.preventDefault();
+          $.ajaxSetup({
+           headers:{
+           'X-CSRF-TOKEN':$('meta[name="_token"]').attr('content')
+               }
+              });
+          $.ajax({
+          url:"<?php echo e(route('comments.comment.store')); ?>",
+          method: 'post', 
+          data:{
+          robot_id:$('#robot_id').val(),
+          name:$('#name').val(),
+          comment:$('#comment').val()
+              },
+         success:function(result){
+           $("#display-comment").append("<div class='card-header'><em><strong>"+result.name+"</strong></em></div><div class='card-body comment-container'><span>"+result.comment+"</span></div>");  
+           $('.alert').show();
+           $('.alert').html(result.success);
+             }});
+          $('#name').val('');
+          $('#comment').val('');
+          
+              });
+          $.ajax({
+                type : 'get',
+                url : '<?php echo e(route('filter')); ?>',
+                success:function(data){
+					//console.log();
+					$('#content').html(data);
+                }
+        	})        	
+  	
+        	$("#filterForm").submit(function(event){
+          	event.preventDefault(); //prevent default action 
+//           	var post_url = $(this).attr("action"); //get form action url
+//           	var request_method = $(this).attr("method"); //get form GET/POST method
+          	var form_data = $(this).serialize(); //Encode form elements for submission        	
+          	$.ajax({
+          		type : 'get',
+                  url : '<?php echo e(route('filter')); ?>',
+          		data : form_data,
+          		success:function(data){
+//   					console.log(form_data);
+  					$('#content').html(data);
+                  }
+          	});
+          });
+          });
             
                    
             
-  				$.ajax({
-  	                type : 'get',
-  	                url : '<?php echo e(route('filter')); ?>',
-  	                success:function(data){
-  						//console.log();
-  						$('#content').html(data);
-  	                }
-  	        	})        	
-        	
-  	        	$("#filterForm").submit(function(event){
-  	          	event.preventDefault(); //prevent default action 
-//  	           	var post_url = $(this).attr("action"); //get form action url
-//  	           	var request_method = $(this).attr("method"); //get form GET/POST method
-  	          	var form_data = $(this).serialize(); //Encode form elements for submission        	
-  	          	$.ajax({
-  	          		type : 'get',
-  	                  url : '<?php echo e(route('filter')); ?>',
-  	          		data : form_data,
-  	          		success:function(data){
-//  	   					console.log(form_data);
-  	  					$('#content').html(data);
-  	                  }
-  	          	});
-  	          });
-        });
+  				
+     
                
 
 
