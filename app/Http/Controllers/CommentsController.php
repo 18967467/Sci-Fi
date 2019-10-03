@@ -8,6 +8,11 @@ use App\Models\Robot;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Exception;
+use App\Models\RobotInfo;
+use Illuminate\Http\Request;
+use Auth;
+use DB;
+use Response;
 
 class CommentsController extends Controller
 {
@@ -19,16 +24,12 @@ class CommentsController extends Controller
      */
     public function index()
     {
+
         $comments = Comment::with('robot','user','parentcomment')->paginate(25);
 
         return view('comments.index', compact('comments'));
     }
 
-    /**
-     * Show the form for creating a new comment.
-     *
-     * @return Illuminate\View\View
-     */
     public function create()
     {
         $Robots = Robot::pluck('id','id')->all();
@@ -47,19 +48,14 @@ $ParentComments = Comment::pluck('id','id')->all();
      */
     public function store(Request $request)
     {
-        try {
-            
-            $data = $this->getData($request);
-            
-            Comment::create($data);
 
-            return redirect()->route('comments.comment.index')
-                ->with('success_message', 'Comment was successfully added.');
-        } catch (Exception $exception) {
-
-            return back()->withInput()
-                ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
-        }
+        $comment=new Comment;
+        $user=Auth::user();
+        $comment->robot_id=$request->robot_id;
+        $comment->user_id=$user->id;
+        $comment->comment=$request->comment;
+        $comment->save();
+        return response()->json($comment);
     }
 
     /**
@@ -126,19 +122,12 @@ $ParentComments = Comment::pluck('id','id')->all();
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+
+=======
+    public function destroy(Comment $comment)
     {
-        try {
-            $comment = Comment::findOrFail($id);
-            $comment->delete();
-
-            return redirect()->route('comments.comment.index')
-                ->with('success_message', 'Comment was successfully deleted.');
-        } catch (Exception $exception) {
-
-            return back()->withInput()
-                ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
-        }
+        $comment->delete();
+        return redirect()->route('comments.comment.index')->with('success','Comment deleted successfully');
     }
 
     

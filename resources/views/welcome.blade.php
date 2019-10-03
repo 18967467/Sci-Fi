@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
+
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
@@ -19,6 +19,15 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
   <!-- Custom styles-->  
   <link href="{{ asset('css/app.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="{{ asset('css/grayscale.min.css') }}" rel="stylesheet">
 
 </head>
 
@@ -114,6 +123,26 @@
           </div>
         </div>
       </div>
+
+      <!-- Project Two Row -->
+      <div class="row justify-content-center no-gutters">
+        <div class="col-lg-6">
+          <img class="img-fluid" src="{{ asset('img/bg-hand.jpg') }}" alt="">
+        </div>
+        <div class="col-lg-6 order-lg-first">
+          <div class="bg-black text-center h-100 project">
+            <div class="d-flex h-100">
+              <div class="project-text w-100 my-auto text-center text-lg-right">
+                <h4 class="text-white">Communication</h4>
+                <p class="mb-0 text-white-50">Users can keep in touch by the mail system, and the discussion area.</p>
+                <hr class="d-none d-lg-block mb-0 mr-0">
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <!-- Project Two Row -->
       <div class="row justify-content-center no-gutters">
@@ -225,6 +254,16 @@
   <!--   <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script> -->
   <!-- Custom scripts -->
   <script src="{{ asset('js/app.min.js') }}"></script>
+
+  <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="{{ asset('js/grayscale.min.js') }}"></script>
+
 </body>
 
 </html>

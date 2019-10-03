@@ -62,9 +62,10 @@ class User extends Model
      *
      * @return App\Models\Comment
      */
-    public function comment()
+
+    public function comments()
     {
-        return $this->hasOne('App\Models\Comment','user_id','id');
+        return $this->hasMany('App\Models\Comment');
     }
 
     /**
@@ -92,9 +93,10 @@ class User extends Model
      *
      * @return App\Models\Robot
      */
-    public function robot()
+
+    public function robots()
     {
-        return $this->hasOne('App\Models\Robot','user_id','id');
+        return $this->hasMany('App\Models\Robot');
     }
 
     /**

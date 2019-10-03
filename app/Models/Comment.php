@@ -56,9 +56,10 @@ class Comment extends Model
      *
      * @return App\Models\Robot
      */
-    public function Robot()
+
+    public function robot()
     {
-        return $this->belongsTo('App\Models\Robot','robot_id','id');
+        return $this->belongsTo(Robot::class);
     }
 
     /**
@@ -66,16 +67,25 @@ class Comment extends Model
      *
      * @return App\Models\User
      */
-    public function User()
-    {
-        return $this->belongsTo('App\Models\User','user_id','id');
-    }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function robotInfos()
+    {
+        return $this->belongsTo(RobotInfo::class);
+    }
+    
     /**
      * Get the ParentComment for this model.
      *
      * @return App\Models\Comment
      */
+
+    public function replies(){
+        return $this->hasMany(Comment::class,'comment_id');
+    }
     public function ParentComment()
     {
         return $this->belongsTo('App\Models\Comment','comment_id','id');

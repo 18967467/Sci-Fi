@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Property;
 use App\Models\Robot;
 use App\Models\User;
+
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -81,6 +83,8 @@ class UsersController extends Controller
         $robot = Robot::where('id', $robotId)->get()->first();
         $active = "robotDetail";
         return view('users.robotdetail', compact('robot', 'active'));   
+
+       
     }
     /**
      * Store a new user in the storage.

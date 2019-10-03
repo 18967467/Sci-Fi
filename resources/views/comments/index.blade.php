@@ -51,9 +51,7 @@
                     <tbody>
                     @foreach($comments as $comment)
                         <tr>
-                            <td>{{ optional($comment->Robot)->id }}</td>
-                            <td>{{ optional($comment->User)->id }}</td>
-                            <td>{{ optional($comment->ParentComment)->id }}</td>
+
 
                             <td>
 
@@ -73,6 +71,20 @@
                                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                         </button>
                                     </div>
+                            <td>{{$comment->robot->id}}</td>
+                            <td>{{ $comment->user->name }}</td>
+                            <td>{{$comment->comment}}</td>
+
+                            <td>
+
+                                <form method="POST" action="{{route('comments.comment.destroy', $comment->id)}}">
+                               
+                                        <button type="submit" class="btn btn-danger">
+                                         Delete
+                                         
+                                         @csrf
+                                         @method('DELETE')                                          
+                                        </button>
 
                                 </form>
                                 

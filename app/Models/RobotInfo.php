@@ -60,6 +60,10 @@ class RobotInfo extends Model
         return $this->belongsTo('App\Models\Robot','robot_id','id');
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class)->whereNull('comment_id');
+    }
     /**
      * Get the Property for this model.
      *

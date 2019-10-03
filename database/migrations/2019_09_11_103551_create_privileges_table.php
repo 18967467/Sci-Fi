@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRobotsTable extends Migration
+class CreatePrivilegesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateRobotsTable extends Migration
      */
     public function up()
     {
-        Schema::create('robots', function (Blueprint $table) {
+        Schema::create('privileges', function (Blueprint $table) {
             $table->bigIncrements('id');
-			$table->unsignedBigInteger('user_account_id');
-			$table->foreign('user_account_id')->references('id')->on('users');
-			$table->tinyInteger('state');
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ class CreateRobotsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('robots');
+        Schema::dropIfExists('privileges');
     }
 }
