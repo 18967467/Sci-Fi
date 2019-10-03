@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use DB;
-use Auth;
-use App\Models\Comment;
+
 use App\Models\Robot;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -118,35 +116,7 @@ class RobotsController extends Controller
         }
     }
     
-    public function getComment(Request $request){
-        if($request->ajax()){
-         $comments = DB::table('comments')
-         ->join('users','users.id','=','comments.user_id')
-         ->select('comments.id as commentid','comments.*','users.id as userid','users.*')
-         ->where('robot_id','=',$request->id)
-         ->get();            
-        }
-        return view('robotdetail',compact('comments'));
-        
-        
-    }
-    
-    public function makeComment(Request $request){
-        if($request->ajax()){
-            $user=Auth::user();
-            $comment=new Comment;
-            
-            $comment->user_id=$user->id;
-            $comment->robot_id=$request->robot_id;
-            $comment->comment=$request->comment;
-            
-            $comment->save();
-            
-            return response($comment);
-            
-        }
-    }
-    
+
     
 
     /**

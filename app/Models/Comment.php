@@ -56,6 +56,7 @@ class Comment extends Model
      *
      * @return App\Models\Robot
      */
+
     public function robot()
     {
         return $this->belongsTo(Robot::class);
@@ -66,6 +67,7 @@ class Comment extends Model
      *
      * @return App\Models\User
      */
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -80,6 +82,7 @@ class Comment extends Model
      *
      * @return App\Models\Comment
      */
+
     public function replies(){
         return $this->hasMany(Comment::class,'comment_id');
     }

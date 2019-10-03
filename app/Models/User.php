@@ -62,6 +62,7 @@ class User extends Model
      *
      * @return App\Models\Comment
      */
+
     public function comments()
     {
         return $this->hasMany('App\Models\Comment');
@@ -92,6 +93,7 @@ class User extends Model
      *
      * @return App\Models\Robot
      */
+
     public function robots()
     {
         return $this->hasMany('App\Models\Robot');

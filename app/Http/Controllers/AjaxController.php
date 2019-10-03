@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Comments
+use Auth;
 
 class AjaxController extends Controller
 {
@@ -34,7 +36,9 @@ class AjaxController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $commentId=$request->comment_id;
+        $comment=Comment::updateOrCreate(['id'=>$commentId],
+            ['robot_id'=>$request->robot_id,'user_id'=>user_id])
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Property;
 use App\Models\Robot;
 use App\Models\User;
+
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Exception;
@@ -81,8 +82,9 @@ class UsersController extends Controller
     {
         $robot = Robot::where('id', $robotId)->get()->first();
         $active = "robotDetail";
-        $comments=Comment::orderBy('id','desc')->get();
-        return view('users.robotdetail',['comments'=>$comments], compact('robot', 'active','comments'));   
+        return view('users.robotdetail', compact('robot', 'active'));   
+
+       
     }
     /**
      * Store a new user in the storage.
