@@ -6,11 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Robot;
 use App\Models\User;
-use App\Models\RobotInfo;
 use Illuminate\Http\Request;
+use Exception;
+use App\Models\RobotInfo;
 use Auth;
 use DB;
-use Exception;
+use Response;
 
 class CommentsController extends Controller
 {
@@ -22,44 +23,12 @@ class CommentsController extends Controller
      */
     public function index()
     {
-        $comments = Comment::latest()->paginate(5);
-        
-        DB::table('comments')->join('robot_infos',function($join){
-         $join->on("comments.robot_id",'=','robot_infos.robot_id')
-         ->where('robot_infos.property_id','=',1);            
-        })->get();
-        return view('comments.index',compact('comments'))->with('i',(request()->input('page',1)-1)*5);
-        
-    }
-    
-    public function addComment(Request $request){
-        $rules=array(
-            'comment'=>'required'
-        );
-        $validator=Validator::make(Input::all(),$rules);
-        
-        if($validator->fails())
-            return Response::json(array(
-                'errors'=>$validator->getMessageBag()->toArray()
-            ));
-            else{
-                $user=Auth::user();
-                $comment= new Comment();
-                $comment->robot_id=$request->robot_id;
-                $comment->user_id=$user->id;
-                $comment->comment=$request->comment;
-                $comment->save();
-                return response()->json($comment);
-            }
-        
-        
+
+        $comments = Comment::with('robot','user','parentcomment')->paginate(25);
+
+        return view('comments.index', compact('comments'));
     }
 
-    /**
-     * Show the form for creating a new comment.
-     *
-     * @return Illuminate\View\View
-     */
     public function create()
     {
         $Robots = Robot::pluck('id','id')->all();
@@ -78,16 +47,15 @@ $ParentComments = Comment::pluck('id','id')->all();
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'comment'=>'required',
-        ]);        
-        $input=$request->all();
-        $input['user_id']=auth()->user()->id;
-        Comment::create($input);
-       $comments = Comment::with('robot','user','parentcomment')->paginate(25);
-        
-        return redirect()->back()->with("message","Comment added successfully");    
-    
+
+        $comment=new Comment;
+        $user=Auth::user();
+        $username=json_encode($user->name);
+        $comment->robot_id=$request->robot_id;
+        $comment->user_id=$user->id;
+        $comment->comment=$request->comment;
+        $comment->save();
+        return response()->json($comment);
     }
 
     /**
@@ -154,6 +122,7 @@ $ParentComments = Comment::pluck('id','id')->all();
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
+
     public function destroy(Comment $comment)
     {
         $comment->delete();
