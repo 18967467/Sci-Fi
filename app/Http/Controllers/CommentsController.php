@@ -6,11 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Robot;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Exception;
 use App\Models\RobotInfo;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
-use Exception;
 use Response;
 
 class CommentsController extends Controller
@@ -23,23 +24,12 @@ class CommentsController extends Controller
      */
     public function index()
     {
-        $comments = Comment::latest()->paginate(5);
-        
-        DB::table('comments')->join('robot_infos',function($join){
-         $join->on("comments.robot_id",'=','robot_infos.robot_id')
-         ->where('robot_infos.property_id','=',1);            
-        })->get();
-        return view('comments.index',compact('comments'))->with('i',(request()->input('page',1)-1)*5);
-        
-    }
-    
-    
 
-    /**
-     * Show the form for creating a new comment.
-     *
-     * @return Illuminate\View\View
-     */
+        $comments = Comment::with('robot','user','parentcomment')->paginate(25);
+
+        return view('comments.index', compact('comments'));
+    }
+
     public function create()
     {
         $Robots = Robot::pluck('id','id')->all();
@@ -58,6 +48,7 @@ $ParentComments = Comment::pluck('id','id')->all();
      */
     public function store(Request $request)
     {
+
         $comment=new Comment;
         $user=Auth::user();
         $comment->robot_id=$request->robot_id;
@@ -131,6 +122,8 @@ $ParentComments = Comment::pluck('id','id')->all();
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
+
+=======
     public function destroy(Comment $comment)
     {
         $comment->delete();

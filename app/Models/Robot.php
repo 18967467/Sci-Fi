@@ -54,6 +54,7 @@ class Robot extends Model
      *
      * @return App\Models\User
      */
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -66,6 +67,7 @@ class Robot extends Model
      */
     public function comments()
     {
+
         return $this->hasMany(Comment::class);
     }
 

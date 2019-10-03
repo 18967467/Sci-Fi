@@ -11,6 +11,14 @@
   <title>Robot Galaxy</title>
 
   <!-- Bootstrap core CSS -->
+  <link href="{{ asset('bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+  <!-- Custom fonts -->
+  <!--   <script src="https://kit.fontawesome.com/1be45fb696.js"></script> -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css" integrity="sha384-rtJEYb85SiYWgfpCr0jn174XgJTn4rptSOQsMroFBPQSGLdOC5IbubP6lJ35qoM9" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <!-- Custom styles-->  
+  <link href="{{ asset('css/app.min.css') }}" rel="stylesheet">
   <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 
   <!-- Custom fonts for this template -->
@@ -129,6 +137,26 @@
                 <p class="mb-0 text-white-50">Users can keep in touch by the mail system, and the discussion area.</p>
                 <hr class="d-none d-lg-block mb-0 mr-0">
               </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Project Two Row -->
+      <div class="row justify-content-center no-gutters">
+        <div class="col-lg-6">
+          <img class="img-fluid" src="{{ asset('img/bg-hand.jpg') }}" alt="">
+        </div>
+        <div class="col-lg-6 order-lg-first">
+          <div class="bg-black text-center h-100 project">
+            <div class="d-flex h-100">
+              <div class="project-text w-100 my-auto text-center text-lg-right">
+                <h4 class="text-white">Communication</h4>
+                <p class="mb-0 text-white-50">Users can keep in touch by the mail system, and the discussion area.</p>
+                <hr class="d-none d-lg-block mb-0 mr-0">
+              </div>
             </div>
           </div>
         </div>
@@ -221,6 +249,12 @@
   </footer>
 
   <!-- Bootstrap core JavaScript -->
+  <script src="{{ asset('jquery/jquery-3.4.1.js') }}"></script>
+  <script src="{{ asset('bootstrap/bootstrap.bundle.min.js') }}"></script>
+  <!--   <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script> -->
+  <!-- Custom scripts -->
+  <script src="{{ asset('js/app.min.js') }}"></script>
+
   <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
   <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
