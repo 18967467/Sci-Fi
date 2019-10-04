@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Property;
 use App\Models\Robot;
 use App\Models\User;
-
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Exception;
@@ -42,7 +41,8 @@ class UsersController extends Controller
     public function detail()
     {
         $active = "home";
-        return view('users.robotdetail', compact('active'));
+        $comment = DB::table('comments')->latest()->first();
+        return view('users.robotdetail', compact('active','comment'));
     }
     
     public function home()
@@ -81,8 +81,9 @@ class UsersController extends Controller
     public function robotDetail(int $robotId)
     {
         $robot = Robot::where('id', $robotId)->get()->first();
+        $comment = DB::table('comments')->latest()->first();
         $active = "robotDetail";
-        return view('users.robotdetail', compact('robot', 'active'));   
+        return view('users.robotdetail', compact('robot', 'active','comment'));   
 
        
     }

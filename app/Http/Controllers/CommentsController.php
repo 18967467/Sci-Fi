@@ -54,6 +54,7 @@ $ParentComments = Comment::pluck('id','id')->all();
         $comment->robot_id=$request->robot_id;
         $comment->user_id=$user->id;
         $comment->comment=$request->comment;
+        $comment->comment_id=$request->comment_id;
         $comment->save();
         return response()->json($comment);
     }
