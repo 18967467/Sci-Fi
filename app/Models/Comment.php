@@ -3,11 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
 class Comment extends Model
 {
     
-
     /**
      * The database table used by the model.
      *
@@ -76,6 +74,8 @@ class Comment extends Model
     {
         return $this->belongsTo(RobotInfo::class);
     }
+    
+   
     
     /**
      * Get the ParentComment for this model.
