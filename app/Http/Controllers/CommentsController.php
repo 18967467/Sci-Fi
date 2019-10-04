@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Robot;
 use App\Models\User;
+
 use Illuminate\Http\Request;
 use Exception;
 use App\Models\RobotInfo;
@@ -55,6 +56,7 @@ $ParentComments = Comment::pluck('id','id')->all();
         $comment->user_id=$user->id;
         $comment->comment=$request->comment;
         $comment->comment_id=$request->comment_id;
+
         $comment->save();
         return response()->json($comment);
     }
@@ -123,6 +125,7 @@ $ParentComments = Comment::pluck('id','id')->all();
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
+
 
     public function destroy(Comment $comment)
     {

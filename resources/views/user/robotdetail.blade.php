@@ -1,6 +1,10 @@
 @extends('layouts.app')
 @section('content')
-
+@if(session()->has('message'))
+<div class="alert alert-success">
+{{session()->get('message')}}
+</div>
+@endif
 <div class="container">
 	@php
     	$collection = collect();	
@@ -55,32 +59,44 @@
               </a>
         </div>    
     </div>
-    <h4>Add comment</h4>
-                    <form method="post" action="{{ route('comments.comment.store'   ) }}">
+ <form class="form-horizontal"  method="post" id="comment_form">
                         @csrf
                         <div class="form-group">
-                            <textarea class="form-control" name="comment"></textarea>
-                            <input type="hidden" name="robot_id" value="{{ $robot->id }}" />
+                        <label for="comment" class="control-label col-md-4">Comment:</label>
+                       <div class="col-md-8">
+                            <textarea class="form-control" name="comment" id="comment" data-id="{{$robot->id}}"></textarea>
+                            <input type="hidden" id="robot_id" name="robot_id" value="{{ $robot->id }}" />
+                            <input type="text" id="name" name="name" value="Joe Bloggs" />
+                                                                          
+                        </div> 
                         </div>
-                        <div class="form-group">
-                            <input type="submit" class="btn btn-success" value="Add Comment" />
-                        </div>
-                    </form>
-<div class="comments">
-<ul class="list-group">
+                        <div class="form-group" align="center">
+                        <button class="btn btn-success" type="submit" id="addComment">Add</button>
+                        </div>     
+                        
+                    </form>    
+    
+   
+    
+<div class="row">
+<div class="col-md-8 col-md-offset-2">
+<div class="card">
+<h3>Comments</h3>
+<div id="display-comment">
 @foreach($robot->comments as $comment)
-<li class="list-group-item">
-<div>
-{{$comment->user->name}}
+<div class="card-header"><em><strong>{{$comment->user->name}}</strong></em></div>
+<div class="card-body comment-container">
+<span>{{$comment->comment}}</span>
 </div>
-<div>
-{{$comment->comment}}
-</div>
-</li>
-
 @endforeach
-</ul>
+
+</div>
+</div>
+</div>
 </div>
 </div>
 <!-- /.container -->
 @endsection
+
+   
+                    

@@ -19,20 +19,20 @@
         <div class="panel-heading clearfix">
 
             <div class="pull-left">
-                <h4 class="mt-5 mb-5">Comments</h4>
+                <h4 class="mt-5 mb-5">Robot Infos</h4>
             </div>
 
             <div class="btn-group btn-group-sm pull-right" role="group">
-                <a href="{{ route('comments.comment.create') }}" class="btn btn-success" title="Create New Comment">
+                <a href="{{ route('robot_infos.robot_info.create') }}" class="btn btn-success" title="Create New Robot Info">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 </a>
             </div>
 
         </div>
         
-        @if(count($comments) == 0)
+        @if(count($robotInfos) == 0)
             <div class="panel-body text-center">
-                <h4>No Comments Available.</h4>
+                <h4>No Robot Infos Available.</h4>
             </div>
         @else
         <div class="panel-body panel-body-with-table">
@@ -42,49 +42,37 @@
                     <thead>
                         <tr>
                             <th>Robot</th>
-                            <th>User</th>
-                            <th>Comment</th>
+                            <th>Property</th>
+                            <th>Content</th>
 
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach($comments as $comment)
+                    @foreach($robotInfos as $robotInfo)
                         <tr>
-
+                            <td>{{ optional($robotInfo->Robot)->state }}</td>
+                            <td>{{ optional($robotInfo->Property)->name }}</td>
+                            <td>{{ $robotInfo->content }}</td>
 
                             <td>
 
-                                <form method="POST" action="{!! route('comments.comment.destroy', $comment->id) !!}" accept-charset="UTF-8">
+                                <form method="POST" action="{!! route('robot_infos.robot_info.destroy', $robotInfo->id) !!}" accept-charset="UTF-8">
                                 <input name="_method" value="DELETE" type="hidden">
                                 {{ csrf_field() }}
 
                                     <div class="btn-group btn-group-xs pull-right" role="group">
-                                        <a href="{{ route('comments.comment.show', $comment->id ) }}" class="btn btn-info" title="Show Comment">
+                                        <a href="{{ route('robot_infos.robot_info.show', $robotInfo->id ) }}" class="btn btn-info" title="Show Robot Info">
                                             <span class="glyphicon glyphicon-open" aria-hidden="true"></span>
                                         </a>
-                                        <a href="{{ route('comments.comment.edit', $comment->id ) }}" class="btn btn-primary" title="Edit Comment">
+                                        <a href="{{ route('robot_infos.robot_info.edit', $robotInfo->id ) }}" class="btn btn-primary" title="Edit Robot Info">
                                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                         </a>
 
-                                        <button type="submit" class="btn btn-danger" title="Delete Comment" onclick="return confirm(&quot;Click Ok to delete Comment.&quot;)">
+                                        <button type="submit" class="btn btn-danger" title="Delete Robot Info" onclick="return confirm(&quot;Click Ok to delete Robot Info.&quot;)">
                                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                         </button>
                                     </div>
-                            <td>{{$comment->robot->id}}</td>
-                            <td>{{ $comment->user->name }}</td>
-                            <td>{{$comment->comment}}</td>
-
-                            <td>
-
-                                <form method="POST" action="{{route('comments.comment.destroy', $comment->id)}}">
-                               
-                                        <button type="submit" class="btn btn-danger">
-                                         Delete
-                                         
-                                         @csrf
-                                         @method('DELETE')                                          
-                                        </button>
 
                                 </form>
                                 
@@ -98,7 +86,7 @@
         </div>
 
         <div class="panel-footer">
-            {!! $comments->render() !!}
+            {!! $robotInfos->render() !!}
         </div>
         
         @endif
