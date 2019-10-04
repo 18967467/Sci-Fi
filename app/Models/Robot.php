@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Robot extends Model
 {
-    
 
     /**
      * The database table used by the model.
@@ -40,7 +39,7 @@ class Robot extends Model
      *
      * @var array
      */
-    protected $dates = [];
+    protected $dates = ['deleted_at'];
     
     /**
      * The attributes that should be cast to native types.
@@ -68,7 +67,8 @@ class Robot extends Model
     public function comments()
     {
 
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class)->whereNull('comment_id');
+
     }
 
     /**

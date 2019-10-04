@@ -56,7 +56,59 @@
         </div>    
     </div>
     <!-- /.row -->
+<form class="form-horizontal"  method="post" id="comment_form">
+                        @csrf
+                        <div class="form-group">
+                        <label for="comment" class="control-label col-md-4">Comment:</label>
+                       <div class="col-md-8">
+                            <textarea class="form-control" name="comment" id="comment" data-id="{{$robot->id}}"></textarea>
+                            <input type="hidden" id="robot_id" name="robot_id" value="{{ $robot->id }}" />
+                           <input type="hidden" id="username" name="username" value="{{ Auth::user()->name }}" />
+                                                                                                      
+                        </div> 
+                        </div>
+                        <div class="form-group" align="center">
+                        <button class="btn btn-success" type="submit" id="addComment">Add</button>
+                        </div>     
+                        
+                    </form>    
+    
+   
+    
+<div class="row">
+<div class="col-md-8 col-md-offset-2">
+<h3>Comments</h3>
+<div class="card" id="display-comment">
+@foreach($robot->comments as $comment)
+<div  @if($comment->comment_id !=null)style="margin-left:40px;" @endif>
+<div class="card-header"><em><strong>{{$comment->user->name}}</strong></em></div>
+<div class="card-body comment-container">
+<span>{{$comment->comment}}</span>
+<a href="" id="reply"></a>
+<form class="form-horizontal"  method="post" id="comment_form">
+ @csrf
+ <div class="form-group">
+<label for="comment" class="control-label col-md-4">Reply:</label>
+<div class="col-md-8">
+<input type="text" name="comment" id="comment" data-id="{{$robot->id}}">
+ <input type="hidden" id="robot_id" name="robot_id" value="{{ $robot->id }}" />
+ <input type="hidden" id="username" name="username" value="{{ Auth::user()->name }}" />
+                                                                                                      
+ </div> 
+ </div>
+ <div class="form-group" align="center">
+<button class="btn btn-success" type="submit" id="addComment">Add</button>
+</div>     
+</form>   
+</div>
+</div>
+@endforeach
+
 
 </div>
+</div>
+</div>
+</div>
 <!-- /.container -->
+
 @endsection

@@ -42,7 +42,8 @@ class UsersController extends Controller
     public function detail()
     {
         $active = "home";
-        return view('users.robotdetail', compact('active'));
+        $comment = DB::table('comments')->latest()->first();
+        return view('users.robotdetail', compact('active','comment'));
     }
     
     public function home()
@@ -81,7 +82,9 @@ class UsersController extends Controller
     public function robotDetail(int $robotId)
     {
         $robot = Robot::where('id', $robotId)->get()->first();
+        $comment = DB::table('comments')->latest()->first();
         $active = "robotDetail";
+
         return view('users.robotdetail', compact('robot', 'active'));   
 
        

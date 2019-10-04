@@ -23,6 +23,89 @@
   <!-- Datatable -->
   <link href="{{ asset('datatables/datatables.min.css') }}" rel="stylesheet">
   <link href="{{ asset('datatables/cardtransfer.css') }}" rel="stylesheet">
+    <!-- Bootstrap core JavaScript -->
+    <script src="{{ asset('jquery/jquery-3.4.1.js') }}"></script>
+  	<script src="{{ asset('bootstrap/bootstrap.bundle.min.js') }}"></script>
+    <!-- Datatable -->
+    <script src="{{ asset('datatables/datatables.min.js') }}"></script>
+  	<script src="{{ asset('datatables/cardtransfer.js') }}"></script> 
+  	
+  <!-- Bootstrap core JavaScript -->
+    <script src="{{ asset('jquery/jquery-3.4.1.js') }}"></script>
+    <script src="jquery-3.4.1.min.js"></script>
+    
+  	<script src="{{ asset('bootstrap/bootstrap.bundle.min.js') }}"></script>
+    <!-- Datatable -->
+    <script src="{{ asset('datatables/datatables.min.js') }}"></script>
+  	<script src="{{ asset('datatables/cardtransfer.js') }}"></script> 
+  	
+  	<script type="text/javascript">
+  		
+  			$(document).ready(function(){        	
+          $('#addComment').click(function(e){
+          e.preventDefault();
+          $.ajaxSetup({
+           headers:{
+           'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+               }
+              });
+          $.ajax({
+          url:"{{route('comments.comment.store')}}",
+          method: 'post',
+          dataType:'json',
+          data:{
+          robot_id:$('#robot_id').val(),
+          
+          comment:$('#comment').val()
+              },
+         success:function(result){
+           var user={!!json_encode(Auth::user())!!}
+           $("#display-comment").append("<div class='card-header'><em><strong>"+user.name+"</strong></em></div><div class='card-body comment-container'><span>"+result.comment+"</span></div>");         
+           $('.alert').show();
+           $('.alert').html(result.success);
+             }});
+          $('#name').val('');
+          $('#comment').val('');
+          
+              });
+          $.ajax({
+                type : 'get',
+                url : '{{ route('filter') }}',
+                success:function(data){
+					//console.log();
+					$('#content').html(data);
+                }
+        	})        	
+  	
+        	$("#filterForm").submit(function(event){
+          	event.preventDefault(); //prevent default action 
+//           	var post_url = $(this).attr("action"); //get form action url
+//           	var request_method = $(this).attr("method"); //get form GET/POST method
+          	var form_data = $(this).serialize(); //Encode form elements for submission        	
+          	$.ajax({
+          		type : 'get',
+                  url : '{{ route('filter') }}',
+          		data : form_data,
+          		success:function(data){
+//   					console.log(form_data);
+  					$('#content').html(data);
+                  }
+          	});
+          });
+          });        	
+           
+  	      
+        
+        
+    </script>
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+    </script>
 </head>
 
 <body>
@@ -92,6 +175,7 @@
         </div>
     </footer>
 
+
     <!-- Bootstrap core JavaScript -->
     <script src="{{ asset('jquery/jquery-3.4.1.js') }}"></script>
   	<script src="{{ asset('bootstrap/bootstrap.bundle.min.js') }}"></script>
@@ -126,7 +210,7 @@
                 }
         	});
         });
-=======
+
 
 <body>
     <!-- Navigation -->
