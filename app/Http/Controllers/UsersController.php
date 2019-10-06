@@ -35,17 +35,17 @@ class UsersController extends Controller
      * @return Illuminate\View\View
      */
     public function create()
-    {       
+    {
         return view('users.create');
     }
-    
+
     public function detail()
     {
         $active = "home";
         $comment = DB::table('comments')->latest()->first();
         return view('users.robotdetail', compact('active','comment'));
     }
-    
+
     public function home()
     {
         $filters = Property::where('filter', '>', 0)->get()->sortBy('filter');
@@ -78,16 +78,20 @@ class UsersController extends Controller
         $active = "upload";
         return view('users.upload', compact('properties', 'robot', 'active'));
     }
-    
+
     public function robotDetail(int $robotId)
     {
         $robot = Robot::where('id', $robotId)->get()->first();
         $comment = DB::table('comments')->latest()->first();
         $active = "robotDetail";
 
-        return view('users.robotdetail', compact('robot', 'active'));   
+        return view('users.robotdetail', compact('robot', 'active'));
 
-       
+
+    }
+    public function statistic()
+    {
+        return view('users.statistic');
     }
     /**
      * Store a new user in the storage.
@@ -99,10 +103,10 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
             $data['password'] = Hash::make($data['password']);
-            
+
             User::create($data);
 
             return redirect()->route('users.user.index')
@@ -138,16 +142,16 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        
+
 
         return view('users.edit', compact('user'));
     }
-    
+
     public function changepass($id)
     {
         $user = User::findOrFail($id);
-        
-        
+
+
         return view('users.changepass', compact('user'));
     }
 
@@ -162,9 +166,9 @@ class UsersController extends Controller
     public function update($id, Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             $user = User::findOrFail($id);
             $user->update($data);
 
@@ -174,24 +178,24 @@ class UsersController extends Controller
 
             return back()->withInput()
             ->withErrors(['unexpected_error' => $exception->getMessage()]);
-        }        
+        }
     }
-    
-    
+
+
     public function updatepass($id, Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
             $data['password'] = Hash::make($data['password']);
-            
+
             $user = User::findOrFail($id);
             $user->update($data);
-            
+
             return redirect()->route('users.user.index')
             ->with('success_message', 'User was successfully updated.');
         } catch (Exception $exception) {
-            
+
             return back()->withInput()
             ->withErrors(['unexpected_error' => $exception->getMessage()]);
         }
@@ -219,11 +223,11 @@ class UsersController extends Controller
         }
     }
 
-    
+
     /**
      * Get the request's data from the request.
      *
-     * @param Illuminate\Http\Request\Request $request 
+     * @param Illuminate\Http\Request\Request $request
      * @return array
      */
     protected function getData(Request $request)
@@ -240,10 +244,10 @@ class UsersController extends Controller
             'avatar' => 'nullable|string|min:0|max:255',
 //             'avatar' => 'nullable|file|string|min:0|max:255',
             'privilege' => 'required|string|min:1',
-            'remember_token' => 'nullable|string|min:0|max:100', 
+            'remember_token' => 'nullable|string|min:0|max:100',
         ];
 
-        
+
         $data = $request->validate($rules);
 
 

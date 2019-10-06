@@ -15,17 +15,17 @@ class RobotController extends Controller
     {
         //
     }
-        
+
     public function upload()
     {
         return view('robot/upload');
     }
-    
+
     public function statistic()
     {
         return view('robot/statistic');
     }
-    
+
 
     public function detail()
     {
@@ -96,4 +96,6 @@ class RobotController extends Controller
     {
         //
     }
+
+
 }

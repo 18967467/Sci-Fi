@@ -117,20 +117,25 @@
     $("#renderBtn").click(
 
         <?php
-          /*if(isset($_POST['xaxis'])) {
+            /*
+            if(isset($_POST['xaxis'])) {
                 $xaxis = $_POST['xaxis'];
             }
-            if(isset($_POST['yaxis'])) {
+
+
+             if(isset($_POST['yaxis'])) {
                 $yaxis = $_POST['yaxis'];
             }
+
 
             if(isset($_POST['yearFrom'])) {
                 $yearFrom = $_POST['yearFrom'];
             }
 
             if(isset($_POST['yearTo'])) {
-                $yearTo = $_POST['yearTo];
+                $yearTo = $_POST['yearTo'];
             }
+            */
 
             $servername = "localhost";
             $username = "root";
@@ -138,27 +143,45 @@
 
             $conn = new mysqli($servername, $username, $password);
 
-            $sql = "SELECT ";
-            $result = $conn->query($sql);
-            $xaxis = $result;
+            $sql = "SELECT COUNT(robots.id), options.option
+                    FROM robots
+                    INNER JOIN robot_infos ON robots.id=robot_infos.id
+                    INNER JOIN properties ON robot_infos.property_id=properties.id
+                    INNER JOIN options ON properties.id=options.id
+                    WHERE properties.name = 'year'
+                    GROUP BY options.option
+                    ORDER BY COUNT(robots.id) ASC";
 
-            $sql = "";
             $result = $conn->query($sql);
-            $yaxis = $result;
+
+            $data = array();
+            foreach ($result as $row) {
+                $data[] = $row;
+            }
 
             $conn->close();
-            */
 
-            $xaxis = array("5","3","8","7","9","13","16","21");
-            $yaxis = array("1976","1981","1986","1989","1995","1999","2001","2006");
+
+
+            //$xaxis = array("5","3","8","7","9","13","16","21");
+            //$yaxis = array("1976","1981","1986","1989","1995","1999","2001","2006");
 
         ?>
 
         function () {
             let type = document.querySelector('#chart-type');
             type = type.value;
-            let xaxis = <?php echo json_encode($xaxis) ?>;
-            let yaxis = <?php echo json_encode($yaxis) ?>;
+            let data = <?php echo json_encode($data) ?>;
+            let xaxis = [];
+            let yaxis = [];
+
+            for (let i in data) {
+                xaxis.push(data[i].id);
+                yaxis.push(data[i].option);
+            }
+
+            //let xaxis = <?php echo json_encode($xaxis) ?>;
+            //let yaxis = <?php echo json_encode($yaxis) ?>;
 
             renderChart(type, xaxis, yaxis);
 
