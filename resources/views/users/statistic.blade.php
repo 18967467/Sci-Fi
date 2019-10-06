@@ -111,122 +111,73 @@
         */
         ?>
         $("#check").show();
-    })
+    });
+
+
+
+    function renderChart(type, xaxis, yaxis) {
+        let ctx = document.getElementById("myChart").getContext('2d');
+        let myChart = new Chart(ctx, {
+            type: type,
+            data: {
+                labels: yaxis,
+                datasets: [{
+                    label: "AI",
+                    data: xaxis,
+                    backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#0afa24","#645097","#1d6022"]
+                }]
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: true,
+                    text: "Number of AI by Year"
+                },
+                scales: {
+                    xAxes: [{
+                        offset: true,
+                        scaleLabel: {
+                            labelString: 'Year',
+                            display: true
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        },
+                        scaleLabel: {
+                            labelString: 'Number of AI',
+                            display: true
+                        }
+                    }],
+                }
+            }
+        });
+    }
 
 
     $("#renderBtn").click(
-
-        <?php
-            /*
-            if(isset($_POST['xaxis'])) {
-                $xaxis = $_POST['xaxis'];
-            }
-
-
-             if(isset($_POST['yaxis'])) {
-                $yaxis = $_POST['yaxis'];
-            }
-
-
-            if(isset($_POST['yearFrom'])) {
-                $yearFrom = $_POST['yearFrom'];
-            }
-
-            if(isset($_POST['yearTo'])) {
-                $yearTo = $_POST['yearTo'];
-            }
-            */
-
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-
-            $conn = new mysqli($servername, $username, $password);
-
-            $sql = "SELECT COUNT(robots.id), options.option
-                    FROM robots
-                    INNER JOIN robot_infos ON robots.id=robot_infos.id
-                    INNER JOIN properties ON robot_infos.property_id=properties.id
-                    INNER JOIN options ON properties.id=options.id
-                    WHERE properties.name = 'year'
-                    GROUP BY options.option
-                    ORDER BY COUNT(robots.id) ASC";
-
-            $result = $conn->query($sql);
-
-            $data = array();
-            foreach ($result as $row) {
-                $data[] = $row;
-            }
-
-            $conn->close();
-
-
-
-            //$xaxis = array("5","3","8","7","9","13","16","21");
-            //$yaxis = array("1976","1981","1986","1989","1995","1999","2001","2006");
-
-        ?>
-
         function () {
             let type = document.querySelector('#chart-type');
             type = type.value;
-            let data = <?php echo json_encode($data) ?>;
+            let data = [];
             let xaxis = [];
             let yaxis = [];
 
-            for (let i in data) {
-                xaxis.push(data[i].id);
-                yaxis.push(data[i].option);
-            }
-
-            //let xaxis = <?php echo json_encode($xaxis) ?>;
-            //let yaxis = <?php echo json_encode($yaxis) ?>;
-
-            renderChart(type, xaxis, yaxis);
-
-            function renderChart(type, xaxis, yaxis) {
-                let ctx = document.getElementById("myChart").getContext('2d');
-                let myChart = new Chart(ctx, {
-                    type: type,
-                    data: {
-                        labels: yaxis,
-                        datasets: [{
-                            label: "AI",
-                            data: xaxis,
-                            backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#0afa24","#645097","#1d6022"]
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        legend: {
-                            display: false
-                        },
-                        title: {
-                            display: true,
-                            text: "Number of AI by Year"
-                        },
-                        scales: {
-                            xAxes: [{
-                                offset: true,
-                                scaleLabel: {
-                                    labelString: 'Year',
-                                    display: true
-                                }
-                            }],
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                },
-                                scaleLabel: {
-                                    labelString: 'Number of AI',
-                                    display: true
-                                }
-                            }],
-                        }
-                    }
-                });
-            }
+            //Get statistic data
+            $.get("statisticData", {
+                yearFrom: 2000,
+                yearTo: 2019
+            }, function(data) {
+                for (let item in data) {
+                    xaxis.push(item.id);
+                    yaxis.push(item.option);
+                }
+                renderChart(type, xaxis, yaxis);
+            }, "json");
         }
     );
 </script>

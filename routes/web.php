@@ -21,8 +21,8 @@ Route::get('/ajax',function() {
 
 
 
-    
-    
+
+
 Route::resource('ajax-crud','AjaxController');
 Route::get('/addComment','CommentController@addComment');
 Route::get('/getcomment','<a href="mailto:RobotsController@getComment" rel="nofollow">RobotsController@getComment</a>');
@@ -40,6 +40,7 @@ Route::get('/shared', 'UsersController@shared')->name('shared');
 Route::get('/changepassword', 'UsersController@changepassword')->name('changepassword');
 Route::get('/upload', 'UsersController@upload')->name('upload');
 Route::get('/statistic', 'UsersController@statistic')->name('statistic');
+Route::get('/statisticData', 'UsersController@statisticData')->name('statisticData');
 Route::get('/robotdetail/{robotId}', 'UsersController@robotDetail')->name('robotDetail');
 
 Route::get('/dashboard', 'AdminController@dashboard')->name('dashboard');
@@ -197,7 +198,7 @@ Route::group([
     ->name('robots.robot.update');
     Route::delete('/robot/{robot}','RobotsController@destroy')
     ->name('robots.robot.destroy');
-    
+
     Route::post('/', 'RobotsController@upload')
     ->name('robots.robot.upload');
 });
@@ -423,7 +424,7 @@ Route::group([
     ->name('robots.robot.update');
     Route::delete('/robot/{robot}','RobotsController@destroy')
     ->name('robots.robot.destroy');
-    
+
     Route::post('/', 'RobotsController@upload')
     ->name('robots.robot.upload');
 });
@@ -503,10 +504,10 @@ Route::group([
     ->name('users.user.store');
     Route::put('user/{user}', 'UsersController@update')
     ->name('users.user.update');
-    
-    
+
+
     Route::put('user/updatepass/{user}', 'UsersController@updatepass')
-    ->name('users.user.updatepass');    
+    ->name('users.user.updatepass');
     Route::delete('/user/{user}','UsersController@destroy')
     ->name('users.user.destroy');
 });

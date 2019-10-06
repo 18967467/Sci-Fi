@@ -2,6 +2,19 @@
 
 use Illuminate\Support\Str;
 
+/**
+ * @return mysqli
+ */
+function get_mysqli_conn() {
+    return new mysqli(
+        env('DB_HOST', 'localhost'),
+        env('DB_USERNAME', 'root'),
+        env('DB_PASSWORD', ''),
+        env('DB_DATABASE', 'KS1904')
+    );
+}
+
+
 return [
 
     /*

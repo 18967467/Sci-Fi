@@ -93,6 +93,51 @@ class UsersController extends Controller
     {
         return view('users.statistic');
     }
+    public function statisticData() {
+        $yearFrom = $_GET['yearFrom'] ?? null;
+        $yearTo = $_GET['yearTo'] ?? null;
+        /*
+        if(isset($_POST['xaxis'])) {
+            $xaxis = $_POST['xaxis'];
+        }
+
+
+         if(isset($_POST['yaxis'])) {
+            $yaxis = $_POST['yaxis'];
+        }
+
+
+        if(isset($_POST['yearFrom'])) {
+            $yearFrom = $_POST['yearFrom'];
+        }
+
+        if(isset($_POST['yearTo'])) {
+            $yearTo = $_POST['yearTo'];
+        }
+        */
+
+        $conn = get_mysqli_conn();
+
+        $sql = "SELECT COUNT(robots.id) AS rcount, options.option
+                    FROM robots
+                    INNER JOIN robot_infos ON robots.id=robot_infos.id
+                    INNER JOIN properties ON robot_infos.property_id=properties.id
+                    INNER JOIN options ON properties.id=options.id
+                    WHERE properties.name = 'year'
+                    GROUP BY options.option
+                    ORDER BY COUNT(robots.id) ASC";
+
+        $result = $conn->query($sql);
+        $data = $result->fetch_all();
+        $conn->close();
+
+        return response()->json($data);
+
+        $xaxis = array("5", "3", "8", "7", "9", "13", "16", "21");
+        $yaxis = array("1976", "1981", "1986", "1989", "1995", "1999", "2001", "2006");
+
+
+    }
     /**
      * Store a new user in the storage.
      *
