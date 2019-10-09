@@ -30,7 +30,7 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
-  <component name="PhpDebugGeneral" listening_started="true" />
+  <component name="PhpDebugGeneral" break_at_first_line="true" />
   <component name="PhpServers">
     <servers>
       <server host="localhost" id="9eeba45a-a1c9-42d2-9138-2cf2a463f7a9" name="localhost" port="8080" />
@@ -180,6 +180,7 @@
       <workItem from="1566826573246" duration="4109000" />
       <workItem from="1566906102934" duration="4162000" />
       <workItem from="1570345536043" duration="7365000" />
+      <workItem from="1570624622387" duration="3306000" />
     </task>
     <servers />
   </component>

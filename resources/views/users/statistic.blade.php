@@ -2,7 +2,6 @@
 
 @section('content')
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -123,8 +122,7 @@
                 labels: yaxis,
                 datasets: [{
                     label: "AI",
-                    data: xaxis,
-                    backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#0afa24","#645097","#1d6022"]
+                    data: xaxis
                 }]
             },
             options: {
@@ -172,10 +170,11 @@
                 yearFrom: 2000,
                 yearTo: 2019
             }, function(data) {
-                for (let item in data) {
-                    xaxis.push(item.id);
-                    yaxis.push(item.option);
+                for (let i in data) {
+                    xaxis.push(data[i].rcount);
+                    yaxis.push(data[i].option);
                 }
+                console.log(yaxis);
                 renderChart(type, xaxis, yaxis);
             }, "json");
         }
