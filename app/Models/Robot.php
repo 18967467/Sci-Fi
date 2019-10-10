@@ -68,7 +68,6 @@ class Robot extends Model
     {
 
         return $this->hasMany(Comment::class)->whereNull('comment_id');
-
     }
 
     /**
