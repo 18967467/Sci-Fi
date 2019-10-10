@@ -3,16 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
-class Robot extends Model
+class Comment extends Model
 {
-
+    
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'robots';
+    protected $table = 'comments';
 
     /**
     * The database primary key value.
@@ -30,8 +29,10 @@ class Robot extends Model
      * @var array
      */
     protected $fillable = [
+                  'robot_id',
                   'user_id',
-                  'state'
+                  'comment_id',
+                  'comment'
               ];
 
     /**
@@ -39,7 +40,7 @@ class Robot extends Model
      *
      * @var array
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = [];
     
     /**
      * The attributes that should be cast to native types.
@@ -48,6 +49,17 @@ class Robot extends Model
      */
     protected $casts = [];
     
+    /**
+     * Get the Robot for this model.
+     *
+     * @return App\Models\Robot
+     */
+
+    public function robot()
+    {
+        return $this->belongsTo(Robot::class);
+    }
+
     /**
      * Get the User for this model.
      *
@@ -58,46 +70,35 @@ class Robot extends Model
     {
         return $this->belongsTo(User::class);
     }
-
+    public function robotInfos()
+    {
+        return $this->belongsTo(RobotInfo::class);
+    }
+    
+   
+    
     /**
-     * Get the comment for this model.
+     * Get the ParentComment for this model.
      *
      * @return App\Models\Comment
      */
-    public function comments()
-    {
 
-        return $this->hasMany(Comment::class)->whereNull('comment_id');
+    public function replies(){
+        return $this->hasMany(Comment::class,'comment_id');
+    }
+    public function ParentComment()
+    {
+        return $this->belongsTo('App\Models\Comment','comment_id','id');
     }
 
     /**
-     * Get the report for this model.
+     * Get the childComment for this model.
      *
-     * @return App\Models\Report
+     * @return App\Models\Comment
      */
-    public function reports()
+    public function childComment()
     {
-        return $this->hasMany('App\Models\Report','robot_id','id');
-    }
-
-    /**
-     * Get the robotInfo for this model.
-     *
-     * @return App\Models\RobotInfo
-     */
-    public function robotInfos()
-    {
-        return $this->hasMany('App\Models\RobotInfo','robot_id','id');
-    }
-
-    /**
-     * Get the savedList for this model.
-     *
-     * @return App\Models\SavedList
-     */
-    public function savedList()
-    {
-        return $this->hasMany('App\Models\SavedList','robot_id','id');
+        return $this->hasOne('App\Models\Comment','comment_id','id');
     }
 
 

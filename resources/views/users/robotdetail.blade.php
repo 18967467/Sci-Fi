@@ -85,23 +85,47 @@
 <div class="card-body comment-container">
 <span>{{$comment->comment}}</span>
 <a href="" id="reply"></a>
-<form class="form-horizontal"  method="post" id="comment_form">
+<form class="form-horizontal"  method="post" id="comment_form" action="{{route('reply.add')}}">
  @csrf
  <div class="form-group">
-<label for="comment" class="control-label col-md-4">Reply:</label>
 <div class="col-md-8">
 <input type="text" name="comment" id="comment" data-id="{{$robot->id}}">
  <input type="hidden" id="robot_id" name="robot_id" value="{{ $robot->id }}" />
- <input type="hidden" id="username" name="username" value="{{ Auth::user()->name }}" />
+ <input type="hidden" id="comment_id" name="comment_id" value="{{$comment->id}}" />
                                                                                                       
  </div> 
  </div>
  <div class="form-group" align="center">
-<button class="btn btn-success" type="submit" id="addComment">Add</button>
+<button class="btn btn-success" type="submit" id="addComment">Reply</button>
 </div>     
 </form>   
 </div>
+
 </div>
+@foreach($comment->replies as $reply)
+<div  @if($reply->comment_id !=null)style="margin-left:40px;" @endif>
+<div class="card-header"><em><strong>{{$reply->user->name}}</strong></em></div>
+<div class="card-body comment-container">
+<span>{{$reply->comment}}</span>
+<a href="" id="reply"></a>
+<form class="form-horizontal"  method="post" id="comment_form" action="{{route('reply.add')}}">
+ @csrf
+ <div class="form-group">
+<div class="col-md-8">
+<input type="text" name="comment" id="comment" data-id="{{$robot->id}}">
+ <input type="hidden" id="robot_id" name="robot_id" value="{{ $robot->id }}" />
+ <input type="hidden" id="comment_id" name="comment_id" value="{{$comment->id}}" />
+                                                                                                      
+ </div> 
+ </div>
+ <div class="form-group" align="center">
+<button class="btn btn-success" type="submit" id="addComment">Reply</button>
+</div>     
+</form>   
+</div>
+
+</div>
+@endforeach
 @endforeach
 
 
