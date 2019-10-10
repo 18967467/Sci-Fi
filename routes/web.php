@@ -64,6 +64,7 @@ Route::group([
     ->name('comments.comment.update');
     Route::delete('/comment/{comment}','CommentsController@destroy')
     ->name('comments.comment.destroy');
+    Route::post('/reply/store','CommentsController@replyStore')->name('reply.add');
 });
 
 Route::group([
