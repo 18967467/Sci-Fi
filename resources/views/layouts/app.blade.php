@@ -60,7 +60,7 @@
               },
          success:function(result){
            var user={!!json_encode(Auth::user())!!}
-           $("#display-comment").append("<div class='card-header'><em><strong>"+user.name+"</strong></em></div><div class='card-body comment-container'><span>"+result.comment+"</span></div>");         
+           $("#display-comment").append("<div class='card-header'><em><strong>"+user.name+"</strong></em></div><div class='card-body comment-container'><span>"+result.comment+"</span><a href='' id='reply'></a><form class='form-horizontal' method='post' id='comment_form' action='{{route('reply.add')}}'><input type='hidden' name='_token' value='{{!!csrf_token()!!}'><div class='form-group'><div class='col-md-8'><input type='text' name='comment' id='comment' data-id='{{!!$robot->id!!}}'/><input type='hidden' id='robot_id' name='robot_id' value='{{!!$robot->id!!}}'/><input type='hidden' id='comment_id' name='comment_id' value='{{!!$comment->id!!}}'/></div></div><div class='form-group' align='center'><button type='submit' class='btn btn-success' id='addComment'>Reply</button></div></form></div>");         
            $('.alert').show();
            $('.alert').html(result.success);
              }});
@@ -104,7 +104,6 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
     </script>
 </head>
 
@@ -210,8 +209,6 @@
                 }
         	});
         });
-
-
 <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -271,14 +268,12 @@
     	@yield('content')    
     </div>
     <!-- /.container -->
-
     <!-- Footer -->
     <footer class="py-5 bg-dark">
         <div class="container">
         	<p class="m-0 text-center text-white">Copyright &copy; Robot Galaxy 2019</p>
         </div>
     </footer>
-
     <!-- Bootstrap core JavaScript -->
     <script src="{{ asset('jquery/jquery-3.4.1.js') }}"></script>
     <script src="jquery-3.4.1.min.js"></script>
@@ -346,13 +341,9 @@
   				
      
                
-
-
              
           
-
            
-
            
   	  	        	
            
@@ -366,7 +357,6 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
     </script>
   	
 </body>
